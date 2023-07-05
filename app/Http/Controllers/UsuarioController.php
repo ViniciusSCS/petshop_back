@@ -33,14 +33,19 @@ class UsuarioController extends Controller
     {
         $data = $request->all();
 
-        if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password'], 'isAtivo' => 1])) {
+        if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password']])) {
             $user = auth()->user();
+
+            if($user->isAtivo != 1){
+                return ['status' => false, 'message' => 'Usuário foi deletado ou inativo!'];
+            }
 
             $user->token = $user->createToken($user->email)->accessToken;
             return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
 
+
         } else {
-            return ['status' => false, 'message' => 'Algo deu errado!!! O Usuário ou senha estão incorretos ou o Usuário foi deletado ou inativo'];
+            return ['status' => false, 'message' => 'Usuário ou senha estão incorretos'];
         }
     }
 

@@ -136,8 +136,6 @@ class UsuarioController extends Controller
      */
     public function delete(Request $request)
     {
-        //Não permitir a exclusão de outro usuário
-
         $user = $request->user();
         $data = [
             'isAtivo' => false,

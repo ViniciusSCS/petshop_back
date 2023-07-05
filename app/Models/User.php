@@ -30,6 +30,8 @@ class User extends Authenticatable
         'email',
         'tipo_id',
         'password',
+        'isAtivo',
+        'deleted_at'
     ];
 
     /**

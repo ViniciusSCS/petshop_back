@@ -31,6 +31,7 @@ Route::middleware('auth:api')->group(function (){
         Route::get('/', [UsuarioController::class, 'user']);
         Route::put('/editar', [UsuarioController::class, 'edit']);
         Route::post('/logout', [UsuarioController::class, 'logout']);
+        Route::delete('/deletar', [UsuarioController::class, 'delete']);
     });
 
     Route::prefix('pet')->group(function() {

@@ -33,14 +33,14 @@ class UsuarioController extends Controller
     {
         $data = $request->all();
 
-        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'isAtivo' => 1])) {
             $user = auth()->user();
 
             $user->token = $user->createToken($user->email)->accessToken;
             return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
 
         } else {
-            return ['status' => false, 'message' => 'Usuário ou senha incorretos'];
+            return ['status' => false, 'message' => 'Algo deu errado!!! O Usuário ou senha estão incorretos ou o Usuário foi deletado ou inativo'];
         }
     }
 
@@ -67,6 +67,7 @@ class UsuarioController extends Controller
             'email' => $data['email'],
             'tipo_id' => $data['tipo'],
             'password' => bcrypt($data['password']),
+            'isAtivo' => 1
         ]);
 
         $user->token = $user->createToken($user->email)->accessToken;
@@ -92,25 +93,30 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @param UserUpdateRequest $request
      * @return array
      */
-    public function edit(Request $request, UserUpdateRequest $updateRequest)
+    public function edit(UserUpdateRequest $request)
     {
-        $user = Auth::user();
+        $user = $request->user();
         $data = $request->all();
 
-        if (isset($data['password'])) {
-            $updateRequest->validated();
+        // dd(isset($data['password']));
 
-            $user->password = bcrypt($data['password']);
+        if (isset($data['password'])) {
+            $data = [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'tipo_id' => $data['tipo'],
+                'password'  => bcrypt($data['password'])
+            ];
 
         } else {
-            $updateRequest->validated();
-
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->tipo_id = $data['tipo'];
+            $data = [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'tipo_id' => $data['tipo'],
+            ];
         }
 
         $user = User::find($user->id);
@@ -118,30 +124,8 @@ class UsuarioController extends Controller
         $user->update($data);
 
         $user->token = $user->createToken($user->email)->accessToken;
+
         return ['status' => true, "usuario" => $user];
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -150,8 +134,23 @@ class UsuarioController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function delete(Request $request)
     {
-        //
+        //Não permitir a exclusão de outro usuário
+
+        $user = $request->user();
+        $data = [
+            'isAtivo' => false,
+            'deleted_at' => now()
+        ];
+
+        $user = User::find($user->id);
+
+        $user->update($data);
+
+        $tokenId = $request->user()->token()->id;
+        $this->tokenRepository->revokeAccessToken($tokenId);
+
+        return ['status' => true, 'message' => 'Usuário deletado com sucesso!', "usuario" => $user];
     }
 }

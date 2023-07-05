@@ -33,7 +33,7 @@ class UsuarioController extends Controller
     {
         $data = $request->all();
 
-        if (Auth::attempt(['email' => $data['email'], 'password' => $data['password'], 'isAtivo' => 1])) {
+        if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password'], 'isAtivo' => 1])) {
             $user = auth()->user();
 
             $user->token = $user->createToken($user->email)->accessToken;
@@ -64,7 +64,7 @@ class UsuarioController extends Controller
 
         $user = User::create([
             'name' => $data['name'],
-            'email' => $data['email'],
+            'email' => strtolower($data['email']),
             'tipo_id' => $data['tipo'],
             'password' => bcrypt($data['password']),
             'isAtivo' => 1
@@ -106,7 +106,7 @@ class UsuarioController extends Controller
         if (isset($data['password'])) {
             $data = [
                 'name' => $data['name'],
-                'email' => $data['email'],
+                'email' => strtolower($data['email']),
                 'tipo_id' => $data['tipo'],
                 'password'  => bcrypt($data['password'])
             ];
@@ -114,7 +114,7 @@ class UsuarioController extends Controller
         } else {
             $data = [
                 'name' => $data['name'],
-                'email' => $data['email'],
+                'email' => strtolower($data['email']),
                 'tipo_id' => $data['tipo'],
             ];
         }

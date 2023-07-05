@@ -23,7 +23,7 @@ class PetController extends Controller
      * @param Request $request
      * @return $pet
      */
-    public function cadastrar(PetRequest $request)
+    public function create(PetRequest $request)
     {
         $data = $request->all();
 
@@ -49,7 +49,7 @@ class PetController extends Controller
      * @param $id
      * @return array
      */
-    public function editar($id)
+    public function edit($id)
     {
         $pet = Pet::find($id);
 
@@ -63,7 +63,7 @@ class PetController extends Controller
      * @param $id
      * @return array
      */
-    public function atualizar(PetRequest $request, $id)
+    public function update(PetRequest $request, $id)
     {
         $data = $request->all();
 
@@ -80,7 +80,7 @@ class PetController extends Controller
      * @param Request $request
      * @return array
      */
-    public function listar(Request $request)
+    public function list(Request $request)
     {
         $user = $request->user();
 

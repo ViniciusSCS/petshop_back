@@ -78,7 +78,7 @@ class UsuarioController extends Controller
      * @param Request $request
      * @return mixed
      */
-    public function usuario(Request $request)
+    public function user(Request $request)
     {
         $user = $request->user();
 

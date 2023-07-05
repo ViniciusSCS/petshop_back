@@ -28,17 +28,17 @@ Route::post('/cadastro', [UsuarioController::class, 'create']);
 
 Route::middleware('auth:api')->group(function (){
     Route::prefix('user')->group(function () {
-        Route::get('/', [UsuarioController::class, 'usuario']);
+        Route::get('/', [UsuarioController::class, 'user']);
         Route::put('/editar', [UsuarioController::class, 'edit']);
         Route::post('/logout', [UsuarioController::class, 'logout']);
     });
 
     Route::prefix('pet')->group(function() {
-        Route::get('/listar', [PetController::class, 'listar']);
-        Route::get('/editar/{id}', [PetController::class, 'editar']);
+        Route::get('/listar', [PetController::class, 'list']);
+        Route::get('/editar/{id}', [PetController::class, 'edit']);
         Route::get('/select/{id}', [PetController::class, 'select']);
-        Route::post('/cadastro', [PetController::class, 'cadastrar']);
-        Route::put('/atualizar/{id}', [PetController::class, 'atualizar']);
+        Route::post('/cadastro', [PetController::class, 'create']);
+        Route::put('/atualizar/{id}', [PetController::class, 'update']);
     });
 
     Route::prefix('procedimento')->group(function () {

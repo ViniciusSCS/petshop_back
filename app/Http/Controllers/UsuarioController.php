@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\TokenRepository;
 
+
 /**
  * Class UsuarioController
  *
@@ -29,6 +30,22 @@ class UsuarioController extends Controller
         $this->tokenRepository = $tokenRepository;
     }
 
+    /**
+     * @OA\Post(
+     *     tags={"User"},
+     *     path="/login",
+     *     @OA\Parameter(
+     *         name="email",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         required=true,
+     *     ),
+     *     @OA\Response(response="200", description="Usuário loga com email e senha"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
+     */
     public function login(LoginRequest $request)
     {
         $data = $request->all();
@@ -49,6 +66,16 @@ class UsuarioController extends Controller
         }
     }
 
+    /**
+     * @OA\Post(
+     *     tags={"User"},
+     *     path="/logout",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Rota para deslogar usuário e revogar token"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
+     */
     public function logout(Request $request)
     {
         $tokenId = $request->user()->token()->id;
@@ -60,8 +87,29 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return array
+     * @OA\Post(
+     *      tags={"User"},
+     *      path="/user/cadastro",
+     *      @OA\Parameter(
+     *          name="name",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="email",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="tipo_id",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="password",
+     *          required=true,
+     *      ),
+     *      @OA\Response(response="200", description="Cadastra as informações do usuário"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     *      @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function create(UserRequest $request)
     {
@@ -81,8 +129,13 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @return mixed
+     * @OA\Get(
+     *      tags={"User"},
+     *      path="/user/",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Response(response="200", description="Apreseta informações do usuário logado"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function user(Request $request)
     {
@@ -98,8 +151,30 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @param UserUpdateRequest $request
-     * @return array
+     * @OA\Put(
+     *     tags={"User"},
+     *     path="/user/edit",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="name",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="email",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="tipo_id",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="password",
+     *         required=true,
+     *     ),
+     *     @OA\Response(response="200", description="Atualia as informações do usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function edit(UserUpdateRequest $request)
     {
@@ -134,10 +209,13 @@ class UsuarioController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *     tags={"User"},
+     *     path="/user/deletar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Apreseta informações do usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function delete(Request $request)
     {

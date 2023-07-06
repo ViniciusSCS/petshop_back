@@ -18,8 +18,26 @@ use Illuminate\Support\Facades\DB;
 class MedicamentoController extends Controller
 {
     /**
-     * @return Request
-     * @return $medicamento
+     * @OA\Post(
+     *      tags={"Medicamento"},
+     *      path="/medicamento/cadastro",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *          name="descricao",
+     *          required="true"
+     *      ),
+     *      @OA\Parameter(
+     *          name="tipo_medicamento",
+     *          required="true"
+     *      ),
+     *      @OA\Parameter(
+     *          name="valor",
+     *          required="true"
+     *      ),
+     *      @OA\Response(response="200", description="Cadastra os Medicamentos"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     *      @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function create(MedicamentoRequest $request)
     {
@@ -37,10 +55,13 @@ class MedicamentoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      tags={"Medicamento"},
+     *      path="/medicamento/listar/",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Response(response="200", description="Lista os medicamentos cadastrados"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function list(Request $request)
     {
@@ -56,33 +77,36 @@ class MedicamentoController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Put(
+     *      tags={"Medicamento"},
+     *      path="/medicamento/atualizar/{id}",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Medicameto id",
+     *          in="/atualizar/{id}",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *      @OA\Parameter(
+     *          name="descricao",
+     *          required="true"
+     *      ),
+     *      @OA\Parameter(
+     *          name="tipo_medicamento",
+     *          required="true"
+     *      ),
+     *      @OA\Parameter(
+     *          name="valor",
+     *          required="true"
+     *      ),
+     *      @OA\Response(response="200", description="Atualiza o Medicamento"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     *      @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function update(MedicamentoRequest $request, $id)
     {
@@ -93,16 +117,5 @@ class MedicamentoController extends Controller
         $medicamento->update($data);
 
         return ['status' => true, 'medicamento' => $medicamento];
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

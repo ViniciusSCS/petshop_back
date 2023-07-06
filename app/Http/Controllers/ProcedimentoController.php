@@ -18,8 +18,54 @@ class ProcedimentoController extends Controller
 {
 
     /**
-     * @param Request $request
-     * @return $procedimento
+     * @OA\Post(
+     *      tags={"Procedimento"},
+     *      path="/procedimeto/cadastro",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *          name="pet_id",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="vacina",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="castrado",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="cirurgia",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="banho_tosa",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="user_id",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="data_castracao",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="user_created",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="descricao_cirurgia",
+     *          required=true,
+     *      ),
+     *      @OA\Parameter(
+     *          name="medicamento_id",
+     *          required=true,
+     *      ),
+     *      @OA\Response(response="200", description="Cadastra as os procedimentos"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     *      @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function create(Request $request)
     {
@@ -45,7 +91,14 @@ class ProcedimentoController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @OA\Get(
+     *     tags={"Procedimento"},
+     *     path="/procedimeto/listar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Apresenta a informação do Pet selecionado"),
+     *     @OA\Response(response="204", description="Pet não encotrado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function list(Request $request)
     {
@@ -55,50 +108,5 @@ class ProcedimentoController extends Controller
 
         return ['status' => true, "procedimento" => $query];
 
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -1,0 +1,731 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Sistema PetShop",
+        "version": "2.02.3"
+    },
+    "servers": [
+        {
+            "url": "http://localhost/api"
+        }
+    ],
+    "paths": {
+        "/especie/select": {
+            "get": {
+                "tags": [
+                    "Especie"
+                ],
+                "operationId": "bd36b19766ba49a5226ff9a1ae479b61",
+                "responses": {
+                    "200": {
+                        "description": "Apreseta todas as Espécies"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medicamento/cadastro": {
+            "post": {
+                "tags": [
+                    "Medicamento"
+                ],
+                "operationId": "e183d8d9589ff03f389f9a737fb9aa67",
+                "parameters": [
+                    {
+                        "name": "descricao",
+                        "required": "true"
+                    },
+                    {
+                        "name": "tipo_medicamento",
+                        "required": "true"
+                    },
+                    {
+                        "name": "valor",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastra os Medicamentos"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medicamento/listar/": {
+            "get": {
+                "tags": [
+                    "Medicamento"
+                ],
+                "operationId": "3c8ae93bdbea64018e36462d58870a94",
+                "responses": {
+                    "200": {
+                        "description": "Lista os medicamentos cadastrados"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medicamento/atualizar/{id}": {
+            "put": {
+                "tags": [
+                    "Medicamento"
+                ],
+                "operationId": "7fc5c2bebeb79b290f485e97b4da075f",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/atualizar/{id}",
+                        "description": "Medicameto id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "descricao",
+                        "required": "true"
+                    },
+                    {
+                        "name": "tipo_medicamento",
+                        "required": "true"
+                    },
+                    {
+                        "name": "valor",
+                        "required": "true"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atualiza o Medicamento"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/cadastro": {
+            "post": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "ebffda1a650c3e5de2ba1e198b1c5c0f",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "peso",
+                        "required": true
+                    },
+                    {
+                        "name": "raca",
+                        "required": true
+                    },
+                    {
+                        "name": "sexo",
+                        "required": true
+                    },
+                    {
+                        "name": "user_id",
+                        "required": true
+                    },
+                    {
+                        "name": "especie",
+                        "required": true
+                    },
+                    {
+                        "name": "data_nascimento",
+                        "required": true
+                    },
+                    {
+                        "name": "data_falecimento",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastra as informações do Pet"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/editar/{id}": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "c9b50115ddfe3f1d6016d6045a1279f4",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/editar/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apresenta a informação do Pet selecionado"
+                    },
+                    "204": {
+                        "description": "Pet não encotrado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/atualizar/{id}": {
+            "put": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "e6156b83407bf6a57622d8afd2ea738a",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/atualizar/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    },
+                    {
+                        "name": "name",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "peso",
+                        "required": true
+                    },
+                    {
+                        "name": "raca",
+                        "required": true
+                    },
+                    {
+                        "name": "sexo",
+                        "required": true
+                    },
+                    {
+                        "name": "user_id",
+                        "required": true
+                    },
+                    {
+                        "name": "especie",
+                        "required": true
+                    },
+                    {
+                        "name": "data_nascimento",
+                        "required": true
+                    },
+                    {
+                        "name": "data_falecimento",
+                        "required": false
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atualiza as informações do Pet"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/listar": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "1f64c3dff0e45a1862de6157a3265083",
+                "responses": {
+                    "200": {
+                        "description": "Lista os Pets cadastrados referentes ao usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/select/{id}": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "e912ab4201db8c322d9752b0df9d77ae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/select/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apreseta todos os Pets cadastrados referentes ao usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/procedimeto/cadastro": {
+            "post": {
+                "tags": [
+                    "Procedimento"
+                ],
+                "operationId": "eae4bf5c3eb75358368ac8880716b2eb",
+                "parameters": [
+                    {
+                        "name": "pet_id",
+                        "required": true
+                    },
+                    {
+                        "name": "vacina",
+                        "required": true
+                    },
+                    {
+                        "name": "castrado",
+                        "required": true
+                    },
+                    {
+                        "name": "cirurgia",
+                        "required": true
+                    },
+                    {
+                        "name": "banho_tosa",
+                        "required": true
+                    },
+                    {
+                        "name": "user_id",
+                        "required": true
+                    },
+                    {
+                        "name": "data_castracao",
+                        "required": true
+                    },
+                    {
+                        "name": "user_created",
+                        "required": true
+                    },
+                    {
+                        "name": "descricao_cirurgia",
+                        "required": true
+                    },
+                    {
+                        "name": "medicamento_id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastra as os procedimentos"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/procedimeto/listar": {
+            "get": {
+                "tags": [
+                    "Procedimento"
+                ],
+                "operationId": "100bf0648c2d99fe0055d0f9630abf1c",
+                "responses": {
+                    "200": {
+                        "description": "Apresenta a informação do Pet selecionado"
+                    },
+                    "204": {
+                        "description": "Pet não encotrado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/raca/select/{id}": {
+            "get": {
+                "tags": [
+                    "Raca"
+                ],
+                "operationId": "3210523ba4683dd26a2c8c7178f3f829",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/select/{id}",
+                        "description": "Especie id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apreseta a Raça selecionada de acordo com o ID da espécie escolhida"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/tipoMedicamento/cadastro": {
+            "post": {
+                "tags": [
+                    "TipoMedicamento"
+                ],
+                "operationId": "fc267eab5f6ba548a7bbb04185b788ea",
+                "parameters": [
+                    {
+                        "name": "descricao",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastra os Tipos de medicamentos"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/tipoMedicamento/listar/": {
+            "get": {
+                "tags": [
+                    "TipoMedicamento"
+                ],
+                "operationId": "12c4946ab4bae33bd9a8718b07d56816",
+                "responses": {
+                    "200": {
+                        "description": "Lista os tipos de medicamentos cadastrados"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/login": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "e8c53dec7a99697063f337ac03268dfe",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Usuário loga com email e senha"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "a1235dd5154ae476b05ba902dc817657",
+                "responses": {
+                    "200": {
+                        "description": "Rota para deslogar usuário e revogar token"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/cadastro": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "5626d3474d87206d10a628ccb209c7c3",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "required": true
+                    },
+                    {
+                        "name": "tipo_id",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastra as informações do usuário"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                }
+            }
+        },
+        "/user/": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "62dde2fe594c7e364539fa02e378c8be",
+                "responses": {
+                    "200": {
+                        "description": "Apreseta informações do usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/edit": {
+            "put": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "17cc4fc658878ec5b4d9884c2bacf646",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true
+                    },
+                    {
+                        "name": "email",
+                        "required": true
+                    },
+                    {
+                        "name": "tipo_id",
+                        "required": true
+                    },
+                    {
+                        "name": "password",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Atualia as informações do usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    },
+                    "422": {
+                        "description": "Erro em algum campo obrigatório"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/user/deletar": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "operationId": "be6a9e3a324ead4f6f0e0f4b9aef8d49",
+                "responses": {
+                    "200": {
+                        "description": "Apreseta informações do usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/vacina/select/": {
+            "get": {
+                "tags": [
+                    "Vacina"
+                ],
+                "operationId": "bc584fd419c87d3cb04aea82e5b30db8",
+                "responses": {
+                    "200": {
+                        "description": "Apreseta todas as Vacinas cadastradas"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        }
+    },
+    "components": {
+        "securitySchemes": {
+            "bearerAuth": {
+                "type": "http",
+                "scheme": "bearer"
+            }
+        }
+    }
+}

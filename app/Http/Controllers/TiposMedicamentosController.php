@@ -17,22 +17,18 @@ use Illuminate\Http\Request;
 class TiposMedicamentosController extends Controller
 {
     /**
-     * Lista Tipo de Medicamentos cadastrados.
-     *
-     * @return $query
-     */
-    public function list()
-    {
-        $query = TiposMedicamentos::select('descricao')->get();
-
-        return ['status' => true, "tiposMedicamentos" => $query];
-    }
-
-    /**
-     * Cadastra Tipos de Medicamentos.
-     *
-     * @param Request $request
-     * @return $tipoMedicamento
+     * @OA\Post(
+     *     tags={"TipoMedicamento"},
+     *     path="/tipoMedicamento/cadastro",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="descricao",
+     *         required=true,
+     *     ),
+     *     @OA\Response(response="200", description="Cadastra os Tipos de medicamentos"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function create(TipoMedicamentoRequest $request)
     {
@@ -48,58 +44,18 @@ class TiposMedicamentosController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @OA\Get(
+     *      tags={"TipoMedicamento"},
+     *      path="/tipoMedicamento/listar/",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Response(response="200", description="Lista os tipos de medicamentos cadastrados"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
-    public function store(Request $request)
+    public function list()
     {
-        //
-    }
+        $query = TiposMedicamentos::select('descricao')->get();
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return ['status' => true, "tiposMedicamentos" => $query];
     }
 }

@@ -18,10 +18,46 @@ use Illuminate\Support\Facades\DB;
 class PetController extends Controller
 {
     /**
-     * Cadastra Pets
-     *
-     * @param Request $request
-     * @return $pet
+     * @OA\Post(
+     *     tags={"Pet"},
+     *     path="/pet/cadastro",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="name",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="peso",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="raca",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="sexo",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="especie",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="data_nascimento",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="data_falecimento",
+     *         required=false,
+     *     ),
+     *     @OA\Response(response="200", description="Cadastra as informações do Pet"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function create(PetRequest $request)
     {
@@ -44,24 +80,91 @@ class PetController extends Controller
     }
 
     /**
-     * Edita pets por id
-     *
-     * @param $id
-     * @return array
+     * @OA\Get(
+     *     tags={"Pet"},
+     *     path="/pet/editar/{id}",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="Pet id",
+     *         in="/editar/{id}",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *         )
+     *     ),
+     *     @OA\Response(response="200", description="Apresenta a informação do Pet selecionado"),
+     *     @OA\Response(response="204", description="Pet não encotrado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function edit($id)
     {
         $pet = Pet::find($id);
 
-        return ['status' => true, "pet" => $pet];
+        $info = ($pet == NULL ?
+                ['status' => true, 'message' => 'Pet não encotrado'] :
+                ['status' => true, 'message' => 'Pet encotrado', "pet" => $pet]);
+
+
+        return $info;
     }
 
     /**
-     * Atualiza pet por id
-     *
-     * @param Request $request
-     * @param $id
-     * @return array
+     * @OA\Put(
+     *     tags={"Pet"},
+     *     path="/pet/atualizar/{id}",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="id",
+     *         description="Pet id",
+     *         in="/atualizar/{id}",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="name",
+     *         required=true,
+     *         @OA\Schema(
+     *              type="string"
+     *         )
+     *     ),
+     *     @OA\Parameter(
+     *         name="peso",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="raca",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="sexo",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="user_id",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="especie",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="data_nascimento",
+     *         required=true,
+     *     ),
+     *     @OA\Parameter(
+     *         name="data_falecimento",
+     *         required=false,
+     *     ),
+     *     @OA\Response(response="200", description="Atualiza as informações do Pet"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
+     * )
      */
     public function update(PetRequest $request, $id)
     {
@@ -75,10 +178,13 @@ class PetController extends Controller
     }
 
     /**
-     * Lista os pets cadastrados.
-     *
-     * @param Request $request
-     * @return array
+     * @OA\Get(
+     *     tags={"Pet"},
+     *     path="/pet/listar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Lista os Pets cadastrados referentes ao usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function list(Request $request)
     {
@@ -126,11 +232,23 @@ class PetController extends Controller
     }
 
     /**
-     * Seleciona pets
-     *
-     * @param Request $request
-     * @param $id
-     * @return array
+     * @OA\Get(
+     *      tags={"Pet"},
+     *      path="/pet/select/{id}",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Pet id",
+     *          in="/select/{id}",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *      @OA\Response(response="200", description="Apreseta todos os Pets cadastrados referentes ao usuário logado"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
      */
     public function select(Request $request, $id)
     {

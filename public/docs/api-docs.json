@@ -661,7 +661,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Atualia as informações do usuário logado"
+                        "description": "Atualiza as informações do usuário logado"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"

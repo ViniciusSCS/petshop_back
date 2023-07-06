@@ -678,11 +678,11 @@
             }
         },
         "/user/deletar": {
-            "get": {
+            "delete": {
                 "tags": [
                     "User"
                 ],
-                "operationId": "be6a9e3a324ead4f6f0e0f4b9aef8d49",
+                "operationId": "e3d0f9647d1fc477f0ee17cbba69984c",
                 "responses": {
                     "200": {
                         "description": "Apreseta informações do usuário logado"

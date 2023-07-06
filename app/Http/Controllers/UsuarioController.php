@@ -209,7 +209,7 @@ class UsuarioController extends Controller
     }
 
     /**
-     * @OA\Get(
+     * @OA\Delete(
      *     tags={"User"},
      *     path="/user/deletar",
      *     security={{"bearerAuth": {}}},

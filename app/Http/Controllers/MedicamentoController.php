@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Medicamento;
 use App\Http\Requests\MedicamentoRequest;
+use App\Services\MedicamentoService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -17,6 +18,13 @@ use Illuminate\Support\Facades\DB;
  */
 class MedicamentoController extends Controller
 {
+    protected $service;
+
+    public function __construct(MedicamentoService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Post(
      *      tags={"Medicamento"},
@@ -41,15 +49,7 @@ class MedicamentoController extends Controller
      */
     public function create(MedicamentoRequest $request)
     {
-        $data = $request->all();
-
-        $medicamento = new Medicamento();
-
-        $medicamento->descricao = $data['descricao'];
-        $medicamento->tipo_medicamento_id = $data['tipo_medicamento'];
-        $medicamento->valor = $data['valor'];
-
-        $medicamento->save();
+        $medicamento = $this->service->create($request);
 
         return ['status' => true, "medicamento" => $medicamento];
     }
@@ -65,15 +65,9 @@ class MedicamentoController extends Controller
      */
     public function list(Request $request)
     {
-        $query = Medicamento::select(
-            'descricao',
-            'tipo_medicamento_id',
-            DB::raw("CONCAT('R$ ', valor) as valor")
-        )
-            ->with('tipo_medicamento')
-            ->get();
+        $medicamento = $this->service->list($request);
 
-        return ['status' => true, "medicamento" => $query];
+        return ['status' => true, "medicamento" => $medicamento];
     }
 
     /**

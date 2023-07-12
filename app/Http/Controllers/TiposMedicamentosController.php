@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TiposMedicamentos;
 use App\Http\Requests\TipoMedicamentoRequest;
+use App\Services\TipoMedicamenntoService;
 
 /**
  * Class TiposMedicamentosController
@@ -15,6 +16,13 @@ use App\Http\Requests\TipoMedicamentoRequest;
  */
 class TiposMedicamentosController extends Controller
 {
+
+    protected $service;
+
+    public function __construct(TipoMedicamenntoService $service)
+    {
+        $this->service = $service;
+    }
     /**
      * @OA\Post(
      *     tags={"TipoMedicamento"},
@@ -31,13 +39,7 @@ class TiposMedicamentosController extends Controller
      */
     public function create(TipoMedicamentoRequest $request)
     {
-        $data = $request->all();
-
-        $tipoMedicamento = new TiposMedicamentos();
-
-        $tipoMedicamento->descricao = $data['descricao'];
-
-        $tipoMedicamento->save();
+        $tipoMedicamento = $this->service->create($request);
 
         return ['status' => true, "tiposMedicamentos" => $tipoMedicamento];
     }

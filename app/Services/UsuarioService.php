@@ -3,13 +3,10 @@
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Http\Request;
-use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserUpdateRequest;
 
 class UsuarioService
 {
-    public function create(UserRequest $request)
+    public function create($request)
     {
         $data = $request->all();
 
@@ -37,7 +34,7 @@ class UsuarioService
         return $query;
     }
 
-    public function edit(UserUpdateRequest $request)
+    public function edit($request)
     {
         $user = $request->user();
         $data = $request->all();
@@ -66,7 +63,7 @@ class UsuarioService
         return $user;
     }
 
-    public function delete(Request $request)
+    public function delete($request)
     {
         $user = $request->user();
         $data = [

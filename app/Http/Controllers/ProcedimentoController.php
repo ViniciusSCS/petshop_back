@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Procedimento;
+use App\Services\ProcedimentoService;
 use Illuminate\Http\Request;
 
 /**
@@ -15,6 +16,13 @@ use Illuminate\Http\Request;
  */
 class ProcedimentoController extends Controller
 {
+
+    protected $service;
+
+    public function __construct(ProcedimentoService $service)
+    {
+        $this->service = $service;
+    }
 
     /**
      * @OA\Post(
@@ -68,22 +76,7 @@ class ProcedimentoController extends Controller
      */
     public function create(Request $request)
     {
-        $data = $request->all();
-
-        $procedimento = new Procedimento();
-
-        $procedimento->pet_id = $data['pet_id'];
-        $procedimento->vacina_id = $data['vacina'];
-        $procedimento->castrado = $data['castrado'];
-        $procedimento->cirurgia_id = $data['cirurgia'];
-        $procedimento->banho_tosa = $data['banho_tosa'];
-        $procedimento->user_id = $data['user_id']['id'];
-        $procedimento->data_castracao = $data['data_castracao'];
-        $procedimento->user_created = $data['user_created']['id'];
-        $procedimento->descricao_cirurgica = $data['descricao_cirurgia'];
-        $procedimento->medicamento_id = $data['medicamento_id'];
-
-        $procedimento->save();
+        $procedimento = $this->service->create($request);
 
         return ['status' => true, "procedimento" => $procedimento];
     }
@@ -98,12 +91,10 @@ class ProcedimentoController extends Controller
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
      */
-    public function list(Request $request)
+    public function list()
     {
-        $query = Procedimento::with('dono_pet')
-            ->with('veterinario_pet')
-            ->get();
+        $procedimento = $this->service->list();
 
-        return ['status' => true, "procedimento" => $query];
+        return ['status' => true, "procedimento" => $procedimento];
     }
 }

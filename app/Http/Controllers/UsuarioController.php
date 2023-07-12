@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\{
     UserRequest,
     LoginRequest,
@@ -11,7 +10,7 @@ use App\Http\Requests\{
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\TokenRepository;
-
+use App\Services\UsuarioService;
 
 /**
  * Class UsuarioController
@@ -24,10 +23,12 @@ use Laravel\Passport\TokenRepository;
 class UsuarioController extends Controller
 {
     protected $tokenRepository;
+    protected $service;
 
-    public function __construct(TokenRepository $tokenRepository)
+    public function __construct(TokenRepository $tokenRepository, UsuarioService $service)
     {
         $this->tokenRepository = $tokenRepository;
+        $this->service = $service;
     }
 
     /**
@@ -110,17 +111,7 @@ class UsuarioController extends Controller
      */
     public function create(UserRequest $request)
     {
-        $data = $request->all();
-
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => strtolower($data['email']),
-            'tipo_id' => $data['tipo'],
-            'password' => bcrypt($data['password']),
-            'isAtivo' => 1
-        ]);
-
-        $user->token = $user->createToken($user->email)->accessToken;
+        $user = $this->service->create($request);
 
         return ['status' => true, "usuario" => $user];
     }
@@ -138,13 +129,9 @@ class UsuarioController extends Controller
     {
         $user = $request->user();
 
-        $query = User::with('tipo_usuario')
-            ->with('pets')
-            ->with('pets.especie')
-            ->where('id', $user['id'])
-            ->get();
+        $user = $this->service->user($user['id']);
 
-        return ['status' => true, "usuario" => $query];
+        return ['status' => true, "usuario" => $user];
     }
 
     /**
@@ -175,29 +162,7 @@ class UsuarioController extends Controller
      */
     public function edit(UserUpdateRequest $request)
     {
-        $user = $request->user();
-        $data = $request->all();
-
-        if (isset($data['password'])) {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-                'password'  => bcrypt($data['password'])
-            ];
-        } else {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-            ];
-        }
-
-        $user = User::find($user->id);
-
-        $user->update($data);
-
-        $user->token = $user->createToken($user->email)->accessToken;
+        $user = $this->service->edit($request);
 
         return ['status' => true, "usuario" => $user];
     }
@@ -213,15 +178,7 @@ class UsuarioController extends Controller
      */
     public function delete(Request $request)
     {
-        $user = $request->user();
-        $data = [
-            'isAtivo' => false,
-            'deleted_at' => now()
-        ];
-
-        $user = User::find($user->id);
-
-        $user->update($data);
+        $user = $this->service->delete($request);
 
         $tokenId = $request->user()->token()->id;
         $this->tokenRepository->revokeAccessToken($tokenId);

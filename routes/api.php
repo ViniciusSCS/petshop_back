@@ -26,7 +26,7 @@ use App\Http\Controllers\{
 Route::post('/login', [UsuarioController::class, 'login']);
 Route::post('/cadastro', [UsuarioController::class, 'create']);
 
-Route::middleware('auth:api')->group(function (){
+Route::middleware('auth:api')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [UsuarioController::class, 'user']);
         Route::put('/editar', [UsuarioController::class, 'edit']);
@@ -34,7 +34,7 @@ Route::middleware('auth:api')->group(function (){
         Route::delete('/deletar', [UsuarioController::class, 'delete']);
     });
 
-    Route::prefix('pet')->group(function() {
+    Route::prefix('pet')->group(function () {
         Route::get('/listar', [PetController::class, 'list']);
         Route::get('/editar/{id}', [PetController::class, 'edit']);
         Route::get('/select/{id}', [PetController::class, 'select']);
@@ -70,6 +70,3 @@ Route::middleware('auth:api')->group(function (){
         Route::get('/listar', [TiposMedicamentosController::class, 'list']);
     });
 });
-
-
-

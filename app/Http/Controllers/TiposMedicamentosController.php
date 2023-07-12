@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\TiposMedicamentos;
 use App\Http\Requests\TipoMedicamentoRequest;
-use Illuminate\Http\Request;
 
 /**
  * Class TiposMedicamentosController

@@ -66,10 +66,10 @@ class MedicamentoController extends Controller
     public function list(Request $request)
     {
         $query = Medicamento::select(
-                'descricao',
-                'tipo_medicamento_id',
-                DB::raw("CONCAT('R$ ', valor) as valor")
-            )
+            'descricao',
+            'tipo_medicamento_id',
+            DB::raw("CONCAT('R$ ', valor) as valor")
+        )
             ->with('tipo_medicamento')
             ->get();
 

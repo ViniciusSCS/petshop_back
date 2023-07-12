@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
  */
 class EspecieController extends Controller
 {
-   /**
+    /**
      * @OA\Get(
      *      tags={"Especie"},
      *      path="/especie/select",

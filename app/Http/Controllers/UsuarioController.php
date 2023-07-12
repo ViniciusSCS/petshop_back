@@ -53,14 +53,12 @@ class UsuarioController extends Controller
         if (Auth::attempt(['email' => strtolower($data['email']), 'password' => $data['password']])) {
             $user = auth()->user();
 
-            if($user->isAtivo != 1){
+            if ($user->isAtivo != 1) {
                 return ['status' => false, 'message' => 'Usuário foi deletado ou inativo!'];
             }
 
             $user->token = $user->createToken($user->email)->accessToken;
             return ['status' => true, 'message' => 'Usuário logado com sucesso!', "usuario" => $user];
-
-
         } else {
             return ['status' => false, 'message' => 'Usuário ou senha estão incorretos'];
         }
@@ -83,7 +81,6 @@ class UsuarioController extends Controller
         $this->tokenRepository->revokeAccessToken($tokenId);
 
         return ['status' => true, 'message' => 'Usuário deslogado com sucesso!'];
-
     }
 
     /**
@@ -181,8 +178,6 @@ class UsuarioController extends Controller
         $user = $request->user();
         $data = $request->all();
 
-        // dd(isset($data['password']));
-
         if (isset($data['password'])) {
             $data = [
                 'name' => $data['name'],
@@ -190,7 +185,6 @@ class UsuarioController extends Controller
                 'tipo_id' => $data['tipo'],
                 'password'  => bcrypt($data['password'])
             ];
-
         } else {
             $data = [
                 'name' => $data['name'],

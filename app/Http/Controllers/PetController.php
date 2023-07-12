@@ -104,8 +104,9 @@ class PetController extends Controller
         $pet = Pet::find($id);
 
         $info = ($pet == NULL ?
-                ['status' => true, 'message' => 'Pet não encotrado'] :
-                ['status' => true, 'message' => 'Pet encotrado', "pet" => $pet]);
+            ['status' => false, 'message' => 'Pet não encotrado'] :
+            ['status' => true, 'message' => 'Pet encotrado', "pet" => $pet]
+        );
 
 
         return $info;

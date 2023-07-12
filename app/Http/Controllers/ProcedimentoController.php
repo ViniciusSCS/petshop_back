@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Procedimento;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 
 /**
  * Class ProcedimentoController
@@ -87,7 +86,6 @@ class ProcedimentoController extends Controller
         $procedimento->save();
 
         return ['status' => true, "procedimento" => $procedimento];
-
     }
 
     /**
@@ -107,6 +105,5 @@ class ProcedimentoController extends Controller
             ->get();
 
         return ['status' => true, "procedimento" => $query];
-
     }
 }

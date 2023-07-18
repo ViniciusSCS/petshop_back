@@ -4,10 +4,19 @@ namespace App\Services;
 
 use App\Models\Pet;
 use App\Http\Requests\PetRequest;
+use App\Repository\PetRepository;
 use Illuminate\Support\Facades\DB;
 
 class PetService
 {
+
+    protected $repository;
+
+    public function __construct(PetRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function create(PetRequest $request)
     {
         $data = $request->all();
@@ -54,43 +63,7 @@ class PetService
     {
         $user = $request->user();
 
-        $query = Pet::select(
-            '*',
-            DB::raw("date_format(data_nascimento, '%d/%m/%Y') as data_nascimento"),
-            DB::raw("date_format(data_falecimento, '%d/%m/%Y') as data_falecimento"),
-            DB::raw("
-                CASE
-                    WHEN data_falecimento IS NULL THEN
-                        CONCAT(
-                            FLOOR(( DATE_FORMAT(NOW(),'%Y%m%d') - DATE_FORMAT(data_nascimento,'%Y%m%d'))/10000), ' ano(s) ',
-                            FLOOR((1200 + DATE_FORMAT(NOW(),'%m%d') - DATE_FORMAT(data_nascimento,'%m%d'))/100) %12, ' mes(es) ',
-                            REPLACE(
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)) +
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)),
-                                '.0000', ''
-                            ),' dia(s)'
-                        )
-                    ELSE
-                        CONCAT(
-                            FLOOR(( DATE_FORMAT(data_falecimento ,'%Y%m%d') - DATE_FORMAT(data_nascimento,'%Y%m%d'))/10000), ' ano(s) ',
-                            FLOOR((1200 + DATE_FORMAT(data_falecimento,'%m%d') - DATE_FORMAT(data_nascimento,'%m%d'))/100) %12, ' mes(es) ',
-                            REPLACE(
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)) +
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)),
-                                '.0000', ''
-                            ),' dia(s)'
-                        )
-                END as idade
-            ")
-        )
-            ->with('dono_pet')
-            ->with('especie')
-            ->with('raca')
-            ->with('procedimento')
-            ->with('procedimento.dono_pet')
-            ->with('procedimento.veterinario_pet')
-            ->where('user_id', '=', DB::raw("'" . $user->id . "'"))
-            ->paginate(10);
+        $query = $this->repository->list($user->id);
 
         return ['status' => true, "pets" => $query, "usuario" => $user];
     }
@@ -99,9 +72,7 @@ class PetService
     {
         $user = $request->user();
 
-        $query = Pet::where('id', DB::raw($id))
-            ->where('user_id', '=', DB::raw("'" . $user->id . "'"))
-            ->get();
+        $query = $this->repository->select($id, $user->id);
 
         return $query;
     }

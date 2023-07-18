@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\TiposMedicamentos;
 use App\Http\Requests\TipoMedicamentoRequest;
-use App\Services\TipoMedicamenntoService;
+use App\Services\TipoMedicamentoService;
 
 /**
  * Class TiposMedicamentosController
@@ -19,10 +19,11 @@ class TiposMedicamentosController extends Controller
 
     protected $service;
 
-    public function __construct(TipoMedicamenntoService $service)
+    public function __construct(TipoMedicamentoService $service)
     {
         $this->service = $service;
     }
+
     /**
      * @OA\Post(
      *     tags={"TipoMedicamento"},

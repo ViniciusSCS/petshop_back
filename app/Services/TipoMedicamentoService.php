@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Models\TiposMedicamentos;
 
-class TipoMedicamenntoService
+class TipoMedicamentoService
 {
     public function create($request)
     {

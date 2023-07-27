@@ -106,9 +106,7 @@ class MedicamentoController extends Controller
     {
         $data = $request->all();
 
-        $medicamento = Medicamento::find($id);
-
-        $medicamento->update($data);
+        $medicamento = $this->service->update($data, $id);
 
         return ['status' => true, 'medicamento' => $medicamento];
     }

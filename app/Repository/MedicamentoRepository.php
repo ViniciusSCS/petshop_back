@@ -31,4 +31,13 @@ class MedicamentoRepository
 
         return $query;
     }
+
+    public function update($data, $id)
+    {
+        $medicamento = Medicamento::find($id);
+
+        $medicamento->update($data);
+
+        return $medicamento;
+    }
 }

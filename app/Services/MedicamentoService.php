@@ -26,4 +26,9 @@ class MedicamentoService
     {
         return $this->repository->list();
     }
+
+    public function update($data, $id)
+    {
+        return $this->repository->update($data, $id);
+    }
 }

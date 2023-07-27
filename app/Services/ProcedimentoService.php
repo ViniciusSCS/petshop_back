@@ -26,10 +26,6 @@ class ProcedimentoService
 
     public function list()
     {
-        $query = Procedimento::with('dono_pet')
-            ->with('veterinario_pet')
-            ->get();
-
-        return $query;
+        return $this->repository->list();
     }
 }

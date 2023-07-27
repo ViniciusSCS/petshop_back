@@ -3,20 +3,22 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Repository\UserRepository;
 
 class UsuarioService
 {
+    protected $repository;
+
+    public function __construct(UserRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function create($request)
     {
         $data = $request->all();
 
-        $user = User::create([
-            'name' => $data['name'],
-            'email' => strtolower($data['email']),
-            'tipo_id' => $data['tipo'],
-            'password' => bcrypt($data['password']),
-            'isAtivo' => 1
-        ]);
+        $user = $this->repository->create($data);
 
         $user->token = $user->createToken($user->email)->accessToken;
 
@@ -25,11 +27,7 @@ class UsuarioService
 
     public function user($id)
     {
-        $query = User::with('tipo_usuario')
-            ->with('pets')
-            ->with('pets.especie')
-            ->where('id', $id)
-            ->get();
+        $query = $this->repository->me($id);
 
         return $query;
     }
@@ -39,24 +37,11 @@ class UsuarioService
         $user = $request->user();
         $data = $request->all();
 
-        if (isset($data['password'])) {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-                'password'  => bcrypt($data['password'])
-            ];
-        } else {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-            ];
-        }
+        $dataUpdate = $this->repository->edit($data);
 
         $user = User::find($user->id);
 
-        $user->update($data);
+        $user->update($dataUpdate);
 
         $user->token = $user->createToken($user->email)->accessToken;
 

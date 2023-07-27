@@ -7,6 +7,22 @@ use Illuminate\Support\Facades\DB;
 
 class PetRepository
 {
+    public function create($data, $user)
+    {
+        $pet = Pet::create([
+            'nome' => $data['nome'],
+            'peso' => $data['peso'],
+            'raca_id' => $data['raca'],
+            'sexo' => $data['sexo'],
+            'user_id' => $user->id,
+            'especie_id' => $data['especie'],
+            'data_nascimento' => $data['data_nascimento'],
+            'data_falecimento' => $data['data_falecimento']
+        ]);
+
+        return $pet;
+    }
+
     public function list($id)
     {
         $query = Pet::select(

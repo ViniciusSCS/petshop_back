@@ -5,11 +5,9 @@ namespace App\Services;
 use App\Models\Pet;
 use App\Http\Requests\PetRequest;
 use App\Repository\PetRepository;
-use Illuminate\Support\Facades\DB;
 
 class PetService
 {
-
     protected $repository;
 
     public function __construct(PetRepository $repository)
@@ -19,20 +17,12 @@ class PetService
 
     public function create(PetRequest $request)
     {
+        $user = $request->user();
         $data = $request->all();
 
-        $pet = new Pet();
+        $pet = $this->repository->create($data, $user);
 
-        $pet->nome = $data['nome'];
-        $pet->peso = $data['peso'];
-        $pet->raca_id = $data['raca'];
-        $pet->sexo = $data['sexo'];
-        $pet->user_id = $data['usuario']['id'];
-        $pet->especie_id = $data['especie'];
-        $pet->data_nascimento = $data['data_nascimento'];
-        $pet->data_falecimento = $data['data_falecimento'];
-
-        $pet->save();
+        return $pet;
     }
 
     public function edit($id)
@@ -43,7 +33,6 @@ class PetService
             ['status' => false, 'message' => 'Pet não encotrado'] :
             ['status' => true, 'message' => 'Pet encotrado', "pet" => $pet]
         );
-
 
         return $info;
     }

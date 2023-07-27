@@ -3,27 +3,23 @@
 namespace App\Services;
 
 use App\Models\Procedimento;
+use App\Repository\ProcedimentoRepository;
 
 class ProcedimentoService
 {
+    protected $repository;
+
+    public function __construct(ProcedimentoRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function create($request)
     {
+        $user = $request->user();
         $data = $request->all();
 
-        $procedimento = new Procedimento();
-
-        $procedimento->pet_id = $data['pet_id'];
-        $procedimento->vacina_id = $data['vacina'];
-        $procedimento->castrado = $data['castrado'];
-        $procedimento->cirurgia_id = $data['cirurgia'];
-        $procedimento->banho_tosa = $data['banho_tosa'];
-        $procedimento->user_id = $data['user_id']['id'];
-        $procedimento->data_castracao = $data['data_castracao'];
-        $procedimento->user_created = $data['user_created']['id'];
-        $procedimento->descricao_cirurgica = $data['descricao_cirurgia'];
-        $procedimento->medicamento_id = $data['medicamento_id'];
-
-        $procedimento->save();
+        $procedimento = $this->repository->create($data, $user);
 
         return $procedimento;
     }

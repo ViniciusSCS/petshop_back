@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pet;
 use App\Http\Requests\PetRequest;
 use App\Services\PetService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class PetController
@@ -203,7 +201,7 @@ class PetController extends Controller
     {
         $query = $this->service->select($request, $id);
 
-        return ['status' => true, "pets" => $query];
+        return ['status' => true, "pet" => $query];
     }
 
     public function delete($id)

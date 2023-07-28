@@ -25,9 +25,11 @@ class UsuarioService
         return $user;
     }
 
-    public function user($id)
+    public function user($request)
     {
-        $query = $this->repository->me($id);
+        $user = $request->user();
+
+        $query = $this->repository->me($user->id);
 
         return $query;
     }
@@ -39,9 +41,7 @@ class UsuarioService
 
         $dataUpdate = $this->repository->edit($data);
 
-        $user = User::find($user->id);
-
-        $user->update($dataUpdate);
+        $user = $this->repository->update($dataUpdate, $user->id);
 
         $user->token = $user->createToken($user->email)->accessToken;
 
@@ -56,9 +56,7 @@ class UsuarioService
             'deleted_at' => now()
         ];
 
-        $user = User::find($user->id);
-
-        $user->update($data);
+        $user = $this->repository->update($data, $user->id);
 
         return $user;
     }

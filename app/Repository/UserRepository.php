@@ -6,6 +6,7 @@ use App\Models\User;
 
 class UserRepository
 {
+
     public function create($data)
     {
         $user = User::create([
@@ -48,5 +49,14 @@ class UserRepository
         }
 
         return $data;
+    }
+
+    public function update($dataUpdate, $id)
+    {
+        $user = User::find($id);
+
+        $user->update($dataUpdate);
+
+        return $user;
     }
 }

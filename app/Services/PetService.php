@@ -27,7 +27,7 @@ class PetService
 
     public function edit($id)
     {
-        $pet = Pet::find($id);
+        $pet = $this->repository->find($id);
 
         $info = ($pet == NULL ?
             ['status' => false, 'message' => 'Pet não encotrado'] :
@@ -41,7 +41,7 @@ class PetService
     {
         $data = $request->all();
 
-        $pet = Pet::find($id);
+        $pet = $this->repository->find($id);
 
         $pet->update($data);
 

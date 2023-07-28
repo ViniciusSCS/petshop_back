@@ -127,9 +127,7 @@ class UsuarioController extends Controller
      */
     public function user(Request $request)
     {
-        $user = $request->user();
-
-        $user = $this->service->user($user['id']);
+        $user = $this->service->user($request);
 
         return ['status' => true, "usuario" => $user];
     }

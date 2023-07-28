@@ -7,6 +7,13 @@ use Illuminate\Support\Facades\DB;
 
 class PetRepository
 {
+    public function find($id)
+    {
+        $pet = Pet::find($id);
+
+        return $pet;
+    }
+
     public function create($data, $user)
     {
         $pet = Pet::create([

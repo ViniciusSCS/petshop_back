@@ -81,4 +81,13 @@ class PetRepository
 
         return $query;
     }
+
+    public function delete($id)
+    {
+        $pet = $this->find($id);
+
+        $pet->delete();
+
+        return $pet;
+    }
 }

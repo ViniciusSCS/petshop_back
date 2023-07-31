@@ -56,8 +56,8 @@ class TiposMedicamentosController extends Controller
      */
     public function list()
     {
-        $query = TiposMedicamentos::select('descricao')->get();
+        $tipoMedicamentos = $this->service->list();
 
-        return ['status' => true, "tiposMedicamentos" => $query];
+        return ['status' => true, "tiposMedicamentos" => $tipoMedicamentos];
     }
 }

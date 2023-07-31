@@ -40,6 +40,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/select/{id}', [PetController::class, 'select']);
         Route::post('/cadastro', [PetController::class, 'create']);
         Route::put('/atualizar/{id}', [PetController::class, 'update']);
+        Route::delete('/deletar/{id}', [PetController::class, 'delete']);
     });
 
     Route::prefix('procedimento')->group(function () {

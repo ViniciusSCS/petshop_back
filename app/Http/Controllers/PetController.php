@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ExcelHelper;
 use App\Http\Requests\PetRequest;
 use App\Services\PetService;
 use Illuminate\Http\Request;
@@ -204,8 +205,34 @@ class PetController extends Controller
         return ['status' => true, "pet" => $query];
     }
 
-    public function delete($id)
+    /**
+     * @OA\Delete(
+     *     tags={"Pet"},
+     *     path="/pet/deletar/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Pet id",
+     *          in="/deletar/{id}",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Apreseta informações do pet deletado ou Retorno do pet não encontrado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     */
+    public function delete(Request $request, $id)
     {
-        //
+        $pet = $this->service->delete($request, $id);
+
+        $info = ($pet == NULL ?
+            ['status' => false, 'message' => 'Pet não encotrado!'] :
+            ['status' => true, 'message' => 'Pet excluido com sucesso!', "pet" => $pet]
+        );
+
+        return $info;
     }
 }

@@ -65,4 +65,17 @@ class PetService
 
         return $query;
     }
+
+    public function delete($request, $id)
+    {
+        $userId = $request->user()->id;
+
+        $pet = $this->repository->find($id);
+
+        if ($pet == null || $userId != $pet->user_id) {
+            return null;
+        }
+
+        return $this->repository->delete($id);
+    }
 }

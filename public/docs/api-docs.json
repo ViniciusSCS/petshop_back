@@ -357,6 +357,39 @@
                 ]
             }
         },
+        "/pet/deletar/{id}": {
+            "delete": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "88a1c5508792b2eeed71ba063b88205d",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/deletar/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apreseta informações do pet deletado ou Retorno do pet não encontrado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/procedimeto/cadastro": {
             "post": {
                 "tags": [

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Helpers\ExcelHelper;
 use App\Http\Requests\PetRequest;
 use App\Services\PetService;
 use Illuminate\Http\Request;

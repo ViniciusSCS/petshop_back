@@ -35,11 +35,13 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::prefix('pet')->group(function () {
+        Route::post('/cadastro', [PetController::class, 'create']);
         Route::get('/listar', [PetController::class, 'list']);
         Route::get('/editar/{id}', [PetController::class, 'edit']);
         Route::get('/select/{id}', [PetController::class, 'select']);
-        Route::post('/cadastro', [PetController::class, 'create']);
+        Route::get('/pet', [PetController::class, 'petReport']);
         Route::put('/atualizar/{id}', [PetController::class, 'update']);
+        Route::put('/pet-falecido/{id}', [PetController::class, 'demise']);
         Route::delete('/deletar/{id}', [PetController::class, 'delete']);
     });
 

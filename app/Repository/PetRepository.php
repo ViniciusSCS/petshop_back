@@ -90,4 +90,15 @@ class PetRepository
 
         return $pet;
     }
+
+    public function demise($death_date, $id)
+    {
+        $pet = $this->find($id);
+
+        $pet->data_falecimento = $death_date;
+
+        $pet->save();
+
+        return $pet;
+    }
 }

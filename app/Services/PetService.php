@@ -78,4 +78,11 @@ class PetService
 
         return $this->repository->delete($id);
     }
+
+    public function demise($request, $id)
+    {
+        $data = $request->all();
+
+        return $this->repository->demise($data['data_falecimento'], $id);
+    }
 }

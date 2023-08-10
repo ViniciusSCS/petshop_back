@@ -196,6 +196,27 @@
                 ]
             }
         },
+        "/pet/listar": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "1f64c3dff0e45a1862de6157a3265083",
+                "responses": {
+                    "200": {
+                        "description": "Lista os Pets cadastrados referentes ao usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/pet/editar/{id}": {
             "get": {
                 "tags": [
@@ -220,6 +241,72 @@
                     },
                     "204": {
                         "description": "Pet não encotrado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/select/{id}": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "e912ab4201db8c322d9752b0df9d77ae",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/select/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apreseta todos os Pets cadastrados referentes ao usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/pet/relatorio/pet/{id}": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "0e5998a38bdb0360495f777477dce541",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "/relatorio/pet/{id}",
+                        "description": "Pet id",
+                        "required": true,
+                        "schema": {
+                            "type": "integer",
+                            "format": "int64"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Apreseta o relatório"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"
@@ -303,37 +390,16 @@
                 ]
             }
         },
-        "/pet/listar": {
-            "get": {
+        "/pet/pet-falecido/{id}": {
+            "put": {
                 "tags": [
                     "Pet"
                 ],
-                "operationId": "1f64c3dff0e45a1862de6157a3265083",
-                "responses": {
-                    "200": {
-                        "description": "Lista os Pets cadastrados referentes ao usuário logado"
-                    },
-                    "401": {
-                        "description": "Usuário não Autenticado"
-                    }
-                },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
-            }
-        },
-        "/pet/select/{id}": {
-            "get": {
-                "tags": [
-                    "Pet"
-                ],
-                "operationId": "e912ab4201db8c322d9752b0df9d77ae",
+                "operationId": "c1f771789fb4bf7ebbb687c2d9050d6a",
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/select/{id}",
+                        "in": "/pet-falecido/{id}",
                         "description": "Pet id",
                         "required": true,
                         "schema": {
@@ -344,7 +410,7 @@
                 ],
                 "responses": {
                     "200": {
-                        "description": "Apreseta todos os Pets cadastrados referentes ao usuário logado"
+                        "description": "Apreseta informações do pet falecido ou Retorno do pet não encontrado"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"

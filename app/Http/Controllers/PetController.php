@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PetRequest;
 use App\Services\PetService;
 use Illuminate\Http\Request;
+use App\Http\Requests\PetRequest;
+use App\Http\Requests\PetDemiseRequest;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class PetController
@@ -76,6 +78,22 @@ class PetController extends Controller
     /**
      * @OA\Get(
      *     tags={"Pet"},
+     *     path="/pet/listar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Lista os Pets cadastrados referentes ao usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     */
+    public function list(Request $request)
+    {
+        $query = $this->service->list($request);
+
+        return $query;
+    }
+
+    /**
+     * @OA\Get(
+     *     tags={"Pet"},
      *     path="/pet/editar/{id}",
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
@@ -98,6 +116,60 @@ class PetController extends Controller
         $pet = $this->service->edit($id);
 
         return $pet;
+    }
+
+    /**
+     * @OA\Get(
+     *      tags={"Pet"},
+     *      path="/pet/select/{id}",
+     *      security={{"bearerAuth": {}}},
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Pet id",
+     *          in="/select/{id}",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *      @OA\Response(response="200", description="Apreseta todos os Pets cadastrados referentes ao usuário logado"),
+     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     */
+    public function select(Request $request, $id)
+    {
+        $query = $this->service->select($request, $id);
+
+        return ['status' => true, "pet" => $query];
+    }
+
+    /**
+     * @OA\Get(
+     *     tags={"Pet"},
+     *     path="/pet/relatorio/pet/{id}",
+     *      @OA\Parameter(
+     *          name="id",
+     *          description="Pet id",
+     *          in="/relatorio/pet/{id}",
+     *          required=true,
+     *          @OA\Schema(
+     *              type="integer",
+     *              format="int64"
+     *          )
+     *      ),
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Apreseta o relatório"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     */
+    public function petReport()
+    {
+        $data = ['title' => 'Relatório em PDF'];
+
+        $pdf = Pdf::loadView('pdf.report', $data);
+
+        return $pdf->download('relatorio.pdf');
     }
 
     /**
@@ -163,45 +235,29 @@ class PetController extends Controller
     }
 
     /**
-     * @OA\Get(
+     * @OA\Put(
      *     tags={"Pet"},
-     *     path="/pet/listar",
-     *     security={{"bearerAuth": {}}},
-     *     @OA\Response(response="200", description="Lista os Pets cadastrados referentes ao usuário logado"),
-     *     @OA\Response(response="401", description="Usuário não Autenticado"),
-     * )
-     */
-    public function list(Request $request)
-    {
-        $query = $this->service->list($request);
-
-        return $query;
-    }
-
-    /**
-     * @OA\Get(
-     *      tags={"Pet"},
-     *      path="/pet/select/{id}",
-     *      security={{"bearerAuth": {}}},
+     *     path="/pet/pet-falecido/{id}",
      *      @OA\Parameter(
      *          name="id",
      *          description="Pet id",
-     *          in="/select/{id}",
+     *          in="/pet-falecido/{id}",
      *          required=true,
      *          @OA\Schema(
      *              type="integer",
      *              format="int64"
      *          )
      *      ),
-     *      @OA\Response(response="200", description="Apreseta todos os Pets cadastrados referentes ao usuário logado"),
-     *      @OA\Response(response="401", description="Usuário não Autenticado"),
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Apreseta informações do pet falecido ou Retorno do pet não encontrado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
      */
-    public function select(Request $request, $id)
+    public function demise(PetDemiseRequest $request, $id)
     {
-        $query = $this->service->select($request, $id);
+        $petDemise = $this->service->demise($request, $id);
 
-        return ['status' => true, "pet" => $query];
+        return ['status' => true, 'message' => 'Lamentamos a perda do seu Pet ' . $petDemise->nome, "pet" => $petDemise];
     }
 
     /**

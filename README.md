@@ -4,12 +4,12 @@ Este é um sistema de gerenciamento de petshop desenvolvido usando Laravel 8.
 
 ## Recursos Principais
 
-- Cadastro de clientes
+- Cadastro de clientes e veteriários
 - Cadastro de animais
-- Agendamento de consultas
+- Agendamento de consultas <Á fazer>
 - Cadastro de medicamentos
 - Controle de estoque de produtos
-- Geração de relatórios
+- Geração de relatórios <Á fazer>
 
 ## Requisitos do Sistema
 

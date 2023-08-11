@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Geral;
 use App\Services\PetService;
 use Illuminate\Http\Request;
 use App\Http\Requests\PetRequest;
 use App\Http\Requests\PetDemiseRequest;
-use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class PetController
@@ -72,7 +72,7 @@ class PetController extends Controller
     {
         $pet = $this->service->create($request);
 
-        return ['status' => true, "pet" => $pet];
+        return ['status' => true, "messages" => Geral::PET_CADASTRADO, "pet" => $pet];
     }
 
     /**
@@ -88,7 +88,7 @@ class PetController extends Controller
     {
         $query = $this->service->list($request);
 
-        return $query;
+        return ['status' => true, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
     }
 
     /**
@@ -115,7 +115,12 @@ class PetController extends Controller
     {
         $pet = $this->service->edit($id);
 
-        return $pet;
+        $info = ($pet == NULL ?
+            ['status' => false, 'message' => Geral::PET_NAO_ENCONTRADO] :
+            ['status' => true, 'message' => Geral::PET_ENCONTRADOS, "pet" => $pet]
+        );
+
+        return $info;
     }
 
     /**
@@ -163,13 +168,9 @@ class PetController extends Controller
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
      */
-    public function petReport()
+    public function petReport(Request $request)
     {
-        $data = ['title' => 'Relatório em PDF'];
-
-        $pdf = Pdf::loadView('pdf.report', $data);
-
-        return $pdf->download('relatorio.pdf');
+        return $this->service->report($request);
     }
 
     /**
@@ -231,7 +232,7 @@ class PetController extends Controller
     {
         $pet = $this->service->update($request, $id);
 
-        return ['status' => true, 'message' => 'Pet atualizado com sucesso', "pet" => $pet];
+        return ['status' => true, 'message' => Geral::PET_ATUALIZADO, "pet" => $pet];
     }
 
     /**
@@ -257,7 +258,7 @@ class PetController extends Controller
     {
         $petDemise = $this->service->demise($request, $id);
 
-        return ['status' => true, 'message' => 'Lamentamos a perda do seu Pet ' . $petDemise->nome, "pet" => $petDemise];
+        return ['status' => true, 'message' => Geral::PET_LAMENTACAO . $petDemise->nome, "pet" => $petDemise];
     }
 
     /**
@@ -284,8 +285,8 @@ class PetController extends Controller
         $pet = $this->service->delete($request, $id);
 
         $info = ($pet == NULL ?
-            ['status' => false, 'message' => 'Pet não encotrado!'] :
-            ['status' => true, 'message' => 'Pet excluido com sucesso!', "pet" => $pet]
+            ['status' => false, 'message' => Geral::PET_NAO_ENCONTRADO] :
+            ['status' => true, 'message' => Geral::PET_EXCLUIDO, "pet" => $pet]
         );
 
         return $info;

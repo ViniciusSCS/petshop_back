@@ -2,7 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Pet;
+use App\Constants\Geral;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\PetRequest;
 use App\Repository\PetRepository;
 
@@ -27,14 +28,7 @@ class PetService
 
     public function edit($id)
     {
-        $pet = $this->repository->find($id);
-
-        $info = ($pet == NULL ?
-            ['status' => false, 'message' => 'Pet não encotrado'] :
-            ['status' => true, 'message' => 'Pet encotrado', "pet" => $pet]
-        );
-
-        return $info;
+        return $this->repository->find($id);
     }
 
     public function update($request, $id)
@@ -52,9 +46,7 @@ class PetService
     {
         $user = $request->user();
 
-        $query = $this->repository->list($user->id);
-
-        return ['status' => true, "pets" => $query, "usuario" => $user];
+        return $this->repository->list($request, $user->id);
     }
 
     public function select($request, $id)
@@ -64,6 +56,22 @@ class PetService
         $query = $this->repository->select($id, $user->id);
 
         return $query;
+    }
+
+    public function report($request)
+    {
+        $user = $request->user();
+
+        $pets = $this->repository->report($user->id);
+
+        $data = [
+            'title' => Geral::TITLE_REPORT,
+            'pets' => $pets
+        ];
+
+        $pdf = Pdf::loadView('pdf.report', $data);
+
+        return $pdf->download('relatorio.pdf');
     }
 
     public function delete($request, $id)

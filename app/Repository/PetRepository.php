@@ -14,6 +14,17 @@ class PetRepository
         return $pet;
     }
 
+    public function report($id)
+    {
+        $pet = $this->selectQuery()
+            ->with('especie')
+            ->with('raca')
+            ->where('user_id', '=', DB::raw("'" . $id . "'"))
+            ->get();
+
+        return $pet;
+    }
+
     public function create($data, $user)
     {
         $pet = Pet::create([
@@ -30,9 +41,67 @@ class PetRepository
         return $pet;
     }
 
-    public function list($id)
+    public function list($request, $id)
     {
-        $query = Pet::select(
+        $query = $this->selectQuery();
+
+        if ($request->has('nome')) {
+            $query->where('nome', 'LIKE', '%' . $request->nome . '%');
+        }
+
+        if ($request->has('falecimento')) {
+            $query->whereNotNull('data_falecimento');
+        }
+
+        if ($request->has('especie')) {
+            $query->whereHas('especie', function ($query) use ($request) {
+                $query->where('descricao', 'LIKE',  '%' . $request->especie . '%');
+            });
+        }
+
+        if ($request->has('raca')) {
+            $query->whereHas('raca', function ($query) use ($request) {
+                $query->where('descricao', 'LIKE',  '%' . $request->raca . '%');
+            });
+        }
+
+        return $query
+            ->where('user_id', '=', DB::raw("'" . $id . "'"))
+            ->paginate(10);
+    }
+
+    public function select($id, $userId)
+    {
+        $query = Pet::where('id', DB::raw($id))
+            ->where('user_id', '=', DB::raw("'" . $userId . "'"))
+            ->get();
+
+        return $query;
+    }
+
+    public function delete($id)
+    {
+        $pet = $this->find($id);
+
+        $pet->delete();
+
+        return $pet;
+    }
+
+    public function demise($death_date, $id)
+    {
+        $pet = $this->find($id);
+
+        $pet->data_falecimento = $death_date;
+
+        $pet->save();
+
+        return $pet;
+    }
+
+    private function selectQuery()
+    {
+        $select = Pet::select(
             '*',
             DB::raw("date_format(data_nascimento, '%d/%m/%Y') as data_nascimento"),
             DB::raw("date_format(data_falecimento, '%d/%m/%Y') as data_falecimento"),
@@ -66,39 +135,8 @@ class PetRepository
             ->with('raca')
             ->with('procedimento')
             ->with('procedimento.dono_pet')
-            ->with('procedimento.veterinario_pet')
-            ->where('user_id', '=', DB::raw("'" . $id . "'"))
-            ->paginate(10);
+            ->with('procedimento.veterinario_pet');
 
-        return $query;
-    }
-
-    public function select($id, $userId)
-    {
-        $query = Pet::where('id', DB::raw($id))
-            ->where('user_id', '=', DB::raw("'" . $userId . "'"))
-            ->get();
-
-        return $query;
-    }
-
-    public function delete($id)
-    {
-        $pet = $this->find($id);
-
-        $pet->delete();
-
-        return $pet;
-    }
-
-    public function demise($death_date, $id)
-    {
-        $pet = $this->find($id);
-
-        $pet->data_falecimento = $death_date;
-
-        $pet->save();
-
-        return $pet;
+        return $select;
     }
 }

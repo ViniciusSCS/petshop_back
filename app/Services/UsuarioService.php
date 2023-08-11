@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Constants\Geral;
 use App\Models\User;
 use App\Repository\UserRepository;
 

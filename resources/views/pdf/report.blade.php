@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Relatório em PDF</title>
+    <title>PawControll</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,10 +24,29 @@
     <div class="header">
         <h1>{{ $title }}</h1>
     </div>
-    <div class="content">
-        <p>Este é um exemplo de relatório em PDF gerado usando o Laravel 8 e o pacote dompdf.</p>
-        <p>Você pode personalizar o conteúdo deste relatório de acordo com suas necessidades.</p>
-    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Idade</th>
+                <th>Especie - Raça</th>
+                <th>Peso</th>
+                <th>Sexo</th>
+                <!-- Adicione mais colunas conforme necessário -->
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($pets as $pet)
+            <tr>
+                <td>{{ $pet->nome }}</td>
+                <td>{{ $pet->idade }}</td>
+                <td>{{ $pet->especie->descricao }} - {{ $pet->raca->descricao }}</td>
+                <td>{{ $pet->peso }}</td>
+                <td>{{ $pet->sexo }}</td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 </body>
 
 </html>

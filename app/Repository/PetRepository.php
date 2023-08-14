@@ -16,10 +16,7 @@ class PetRepository
 
     public function report($id)
     {
-        $pet = $this->selectQuery()
-            ->with('especie')
-            ->with('raca')
-            ->where('user_id', '=', DB::raw("'" . $id . "'"))
+        $pet = $this->selectQuery($id)
             ->get();
 
         return $pet;
@@ -43,7 +40,7 @@ class PetRepository
 
     public function list($request, $id)
     {
-        $query = $this->selectQuery();
+        $query = $this->selectQuery($id);
 
         if ($request->has('nome')) {
             $query->where('nome', 'LIKE', '%' . $request->nome . '%');
@@ -66,7 +63,6 @@ class PetRepository
         }
 
         return $query
-            ->where('user_id', '=', DB::raw("'" . $id . "'"))
             ->paginate(10);
     }
 
@@ -99,7 +95,7 @@ class PetRepository
         return $pet;
     }
 
-    private function selectQuery()
+    private function selectQuery($id)
     {
         $select = Pet::select(
             '*',
@@ -135,7 +131,8 @@ class PetRepository
             ->with('raca')
             ->with('procedimento')
             ->with('procedimento.dono_pet')
-            ->with('procedimento.veterinario_pet');
+            ->with('procedimento.veterinario_pet')
+            ->where('user_id', '=', DB::raw("'" . $id . "'"));
 
         return $select;
     }

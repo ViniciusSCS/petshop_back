@@ -25,7 +25,28 @@ class VacinaSeeder extends Seeder
                 'descricao' => 'GIARDÍASE'
             ],
             [
-                'descricao' => 'RAIVA'
+                'descricao' => 'ANTIRÁBICA'
+            ],
+            [
+                'descricao' => 'GRIPE CANINA'
+            ],
+            [
+                'descricao' => 'POLIVALENTE OU MÚLTIPLA'
+            ],
+            [
+                'descricao' => 'LEISHMANIOSE'
+            ],
+            [
+                'descricao' => 'FILARIOSE'
+            ],
+            [
+                'descricao' => 'PANLEUCOPENIA'
+            ],
+            [
+                'descricao' => 'LEUCEMIA FELINA (FELV)'
+            ],
+            [
+                'descricao' => 'COMPLEXO REESPIRATÓRIO FELINO'
             ],
         ];
 

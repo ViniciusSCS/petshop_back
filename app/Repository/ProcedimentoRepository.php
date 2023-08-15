@@ -26,7 +26,7 @@ class ProcedimentoRepository
 
     public function list()
     {
-        $query = Procedimento::with('dono_pet')
+        $query = Procedimento::with('tutor')
             ->with('veterinario_pet')
             ->get();
 

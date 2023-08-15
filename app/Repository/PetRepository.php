@@ -14,9 +14,9 @@ class PetRepository
         return $pet;
     }
 
-    public function report($id)
+    public function report($id, $isVeterinario)
     {
-        $pet = $this->selectQuery($id)
+        $pet = $this->selectQuery($id, $isVeterinario)
             ->get();
 
         return $pet;
@@ -38,29 +38,11 @@ class PetRepository
         return $pet;
     }
 
-    public function list($request, $id)
+    public function list($request, $userId, $isVeterinario)
     {
-        $query = $this->selectQuery($id);
+        $query = $this->selectQuery($userId, $isVeterinario);
 
-        if ($request->has('nome')) {
-            $query->where('nome', 'LIKE', '%' . $request->nome . '%');
-        }
-
-        if ($request->has('falecimento')) {
-            $query->whereNotNull('data_falecimento');
-        }
-
-        if ($request->has('especie')) {
-            $query->whereHas('especie', function ($query) use ($request) {
-                $query->where('descricao', 'LIKE',  '%' . $request->especie . '%');
-            });
-        }
-
-        if ($request->has('raca')) {
-            $query->whereHas('raca', function ($query) use ($request) {
-                $query->where('descricao', 'LIKE',  '%' . $request->raca . '%');
-            });
-        }
+        $query = $this->search($request, $query, $isVeterinario);
 
         return $query
             ->paginate(10);
@@ -95,7 +77,7 @@ class PetRepository
         return $pet;
     }
 
-    private function selectQuery($id)
+    private function selectQuery($userId, $isVeterinario)
     {
         $select = Pet::select(
             '*',
@@ -126,14 +108,53 @@ class PetRepository
                 END as idade
             ")
         )
-            ->with('dono_pet')
+            ->with('tutor')
             ->with('especie')
             ->with('raca')
             ->with('procedimento')
-            ->with('procedimento.dono_pet')
-            ->with('procedimento.veterinario_pet')
-            ->where('user_id', '=', DB::raw("'" . $id . "'"));
+            ->with('procedimento.tutor')
+            ->with('procedimento.veterinario_pet');
+
+
+        if (!$isVeterinario) {
+            $select->where('user_id', '=', DB::raw("'" . $userId . "'"));
+        }
 
         return $select;
+    }
+
+    private function search($request, $query, $isVeterinario)
+    {
+        if ($request->has('nome')) {
+            $query->where('nome', 'LIKE', '%' . $request->nome . '%');
+        }
+
+        if ($request->has('falecimento')) {
+            $query->whereNotNull('data_falecimento');
+        }
+
+        if ($request->has('data_nascimento')) {
+            $query->where('data_nascimento', $request->data_nascimento);
+        }
+
+        if ($request->has('especie')) {
+            $query->whereHas('especie', function ($query) use ($request) {
+                $query->where('descricao', 'LIKE',  '%' . $request->especie . '%');
+            });
+        }
+
+        if ($request->has('raca')) {
+            $query->whereHas('raca', function ($query) use ($request) {
+                $query->where('descricao', 'LIKE',  '%' . $request->raca . '%');
+            });
+        }
+
+        if ($isVeterinario && $request->has('tutor')) {
+            $query->whereHas('tutor', function ($query) use ($request) {
+                $query->where('name', 'LIKE',  '%' . $request->tutor . '%');
+            });
+        }
+
+        return $query;
     }
 }

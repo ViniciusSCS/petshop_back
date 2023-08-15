@@ -44,9 +44,10 @@ class PetService
 
     public function list($request)
     {
-        $user = $request->user();
+        $userId = $request->user()->id;
+        $isVeterinario = $request->user()->tipo_id == 1 ? true : false;
 
-        return $this->repository->list($request, $user->id);
+        return $this->repository->list($request, $userId, $isVeterinario);
     }
 
     public function select($request, $id)
@@ -60,9 +61,10 @@ class PetService
 
     public function report($request)
     {
-        $user = $request->user();
+        $userId = $request->user()->id;
+        $isVeterinario = $request->user()->tipo_id == 1 ? true : false;
 
-        $pets = $this->repository->report($user->id);
+        $pets = $this->repository->report($userId, $isVeterinario);
 
         $data = [
             'title' => Geral::TITLE_REPORT,

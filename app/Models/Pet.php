@@ -48,7 +48,7 @@ class Pet extends Model
         return $this->hasMany(Procedimento::class, 'pet_id', 'id');
     }
 
-    public function dono_pet()
+    public function tutor()
     {
         return $this->hasOne(User::class, 'id', 'user_id');
     }

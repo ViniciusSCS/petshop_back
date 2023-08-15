@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\TiposMedicamentos;
 use App\Repository\TipoMedicamentoRepository;
 
 class TipoMedicamentoService

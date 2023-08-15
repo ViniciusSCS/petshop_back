@@ -9,33 +9,27 @@ class PetRepository
 {
     public function find($id)
     {
-        $pet = Pet::find($id);
-
-        return $pet;
+        return Pet::find($id);
     }
 
     public function report($id, $isVeterinario)
     {
-        $pet = $this->selectQuery($id, $isVeterinario)
+        return $this->selectQuery($id, $isVeterinario)
             ->get();
-
-        return $pet;
     }
 
-    public function create($data, $user)
+    public function create($data, $userId)
     {
-        $pet = Pet::create([
+        return Pet::create([
             'nome' => $data['nome'],
             'peso' => $data['peso'],
             'raca_id' => $data['raca'],
             'sexo' => $data['sexo'],
-            'user_id' => $user->id,
+            'user_id' => $userId,
             'especie_id' => $data['especie'],
             'data_nascimento' => $data['data_nascimento'],
             'data_falecimento' => $data['data_falecimento']
         ]);
-
-        return $pet;
     }
 
     public function list($request, $userId, $isVeterinario)
@@ -50,11 +44,9 @@ class PetRepository
 
     public function select($id, $userId)
     {
-        $query = Pet::where('id', DB::raw($id))
+        return Pet::where('id', DB::raw($id))
             ->where('user_id', '=', DB::raw("'" . $userId . "'"))
             ->get();
-
-        return $query;
     }
 
     public function delete($id)

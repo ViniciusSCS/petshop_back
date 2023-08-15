@@ -18,10 +18,10 @@ class PetService
 
     public function create(PetRequest $request)
     {
-        $user = $request->user();
+        $userId = $request->user()->id;
         $data = $request->all();
 
-        $pet = $this->repository->create($data, $user);
+        $pet = $this->repository->create($data, $userId);
 
         return $pet;
     }
@@ -52,9 +52,9 @@ class PetService
 
     public function select($request, $id)
     {
-        $user = $request->user();
+        $userId = $request->user()->id;
 
-        $query = $this->repository->select($id, $user->id);
+        $query = $this->repository->select($id, $userId);
 
         return $query;
     }

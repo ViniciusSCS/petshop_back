@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\Procedimento;
 use App\Repository\ProcedimentoRepository;
 
 class ProcedimentoService
@@ -16,10 +15,8 @@ class ProcedimentoService
 
     public function create($request)
     {
-        $user = $request->user();
-        $data = $request->all();
 
-        $procedimento = $this->repository->create($data, $user);
+        $procedimento = $this->repository->create($request);
 
         return $procedimento;
     }

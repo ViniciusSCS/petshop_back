@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Vacina;
+use App\Services\VacinaService;
 use Illuminate\Http\Request;
 
 /**
@@ -15,6 +16,13 @@ use Illuminate\Http\Request;
  */
 class VacinaController extends Controller
 {
+    protected $service;
+
+    public function __construct(VacinaService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Get(
      *      tags={"Vacina"},
@@ -26,8 +34,8 @@ class VacinaController extends Controller
      */
     public function select()
     {
-        $query = Vacina::all();
+        $vacina = $this->service->findAll();
 
-        return ['status' => true, "vacinas" => $query];
+        return ['status' => true, "vacinas" => $vacina];
     }
 }

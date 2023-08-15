@@ -6,8 +6,11 @@ use App\Models\Procedimento;
 
 class ProcedimentoRepository
 {
-    public function create($data, $user)
+    public function create($request)
     {
+        $userId = $request->user()->id;
+        $data = $request->all();
+
         $procedimento = Procedimento::create([
             'pet_id' => $data['pet_id'],
             'vacina_id' => $data['vacina'],
@@ -16,7 +19,7 @@ class ProcedimentoRepository
             'banho_tosa' => $data['banho_tosa'],
             'user_id' => $data['user_id'],
             'data_castracao' => $data['data_castracao'],
-            'user_created' => $user->id,
+            'user_created' => $userId,
             'descricao_cirurgica' => $data['descricao_cirurgia'],
             'medicamento_id' => $data['medicamento_id']
         ]);

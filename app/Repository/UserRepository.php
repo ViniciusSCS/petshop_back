@@ -25,6 +25,7 @@ class UserRepository
         $query = User::with('tipo_usuario')
             ->with('pets')
             ->with('pets.especie')
+            ->with('pets.raca')
             ->where('id', $id)
             ->get();
 

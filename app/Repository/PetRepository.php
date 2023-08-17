@@ -79,23 +79,15 @@ class PetRepository
                 CASE
                     WHEN data_falecimento IS NULL THEN
                         CONCAT(
-                            FLOOR(( DATE_FORMAT(NOW(),'%Y%m%d') - DATE_FORMAT(data_nascimento,'%Y%m%d'))/10000), ' ano(s) ',
-                            FLOOR((1200 + DATE_FORMAT(NOW(),'%m%d') - DATE_FORMAT(data_nascimento,'%m%d'))/100) %12, ' mes(es) ',
-                            REPLACE(
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)) +
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)),
-                                '.0000', ''
-                            ),' dia(s)'
+                            TIMESTAMPDIFF(YEAR, data_nascimento, CURRENT_DATE()), ' ano(s), ',
+                            MOD(TIMESTAMPDIFF(MONTH, data_nascimento, CURRENT_DATE), 12), ' mes(es), ',
+                            DATEDIFF(CURRENT_DATE, DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, CURRENT_DATE) MONTH)), ' dia(s)'
                         )
                     ELSE
                         CONCAT(
-                            FLOOR(( DATE_FORMAT(data_falecimento ,'%Y%m%d') - DATE_FORMAT(data_nascimento,'%Y%m%d'))/10000), ' ano(s) ',
-                            FLOOR((1200 + DATE_FORMAT(data_falecimento,'%m%d') - DATE_FORMAT(data_nascimento,'%m%d'))/100) %12, ' mes(es) ',
-                            REPLACE(
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)) +
-                                (SIGN(DAY(curdate()) - DAY(data_nascimento)))/2 * (DAY(curdate()) - DAY(data_nascimento)),
-                                '.0000', ''
-                            ),' dia(s)'
+                            TIMESTAMPDIFF(YEAR, data_nascimento, data_falecimento), ' ano(s), ',
+                            MOD(TIMESTAMPDIFF(MONTH, data_nascimento, data_falecimento), 12), ' mes(es), ',
+                            DATEDIFF(data_falecimento, DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, data_falecimento) MONTH)), ' dia(s)'
                         )
                 END as idade
             ")

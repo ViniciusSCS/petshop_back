@@ -76,20 +76,11 @@ class PetRepository
             DB::raw("date_format(data_nascimento, '%d/%m/%Y') as data_nascimento"),
             DB::raw("date_format(data_falecimento, '%d/%m/%Y') as data_falecimento"),
             DB::raw("
-                CASE
-                    WHEN data_falecimento IS NULL THEN
-                        CONCAT(
-                            TIMESTAMPDIFF(YEAR, data_nascimento, CURRENT_DATE()), ' ano(s), ',
-                            MOD(TIMESTAMPDIFF(MONTH, data_nascimento, CURRENT_DATE), 12), ' mes(es), ',
-                            DATEDIFF(CURRENT_DATE, DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, CURRENT_DATE) MONTH)), ' dia(s)'
-                        )
-                    ELSE
-                        CONCAT(
-                            TIMESTAMPDIFF(YEAR, data_nascimento, data_falecimento), ' ano(s), ',
-                            MOD(TIMESTAMPDIFF(MONTH, data_nascimento, data_falecimento), 12), ' mes(es), ',
-                            DATEDIFF(data_falecimento, DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, data_falecimento) MONTH)), ' dia(s)'
-                        )
-                END as idade
+                CONCAT(
+                    TIMESTAMPDIFF(YEAR, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)), ' ano(s), ',
+                    MOD(TIMESTAMPDIFF(MONTH, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)), 12), ' mes(es), ',
+                    DATEDIFF(IFNULL(data_falecimento, CURRENT_DATE), DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)) MONTH)), ' dia(s)'
+                ) as idade
             ")
         )
             ->with('tutor')

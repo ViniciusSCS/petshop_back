@@ -54,9 +54,7 @@ class PetService
     {
         $userId = $request->user()->id;
 
-        $query = $this->repository->select($id, $userId);
-
-        return $query;
+        return $this->repository->select($id, $userId);
     }
 
     public function report($request)

@@ -146,7 +146,7 @@ class PetController extends Controller
     {
         $query = $this->service->select($request, $id);
 
-        return ['status' => true, "pet" => $query];
+        return ['status' => true, 'message' => Geral::PET_ENCONTRADOS, "pet" => $query];
     }
 
     /**

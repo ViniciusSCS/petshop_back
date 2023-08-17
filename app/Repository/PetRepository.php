@@ -79,7 +79,10 @@ class PetRepository
                 CONCAT(
                     TIMESTAMPDIFF(YEAR, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)), ' ano(s), ',
                     MOD(TIMESTAMPDIFF(MONTH, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)), 12), ' mes(es), ',
-                    DATEDIFF(IFNULL(data_falecimento, CURRENT_DATE), DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento, IFNULL(data_falecimento, CURRENT_DATE)) MONTH)), ' dia(s)'
+                    DATEDIFF(
+                        IFNULL(data_falecimento, CURRENT_DATE),
+                        DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento,
+                        IFNULL(data_falecimento, CURRENT_DATE)) MONTH)), ' dia(s)'
                 ) as idade
             ")
         )

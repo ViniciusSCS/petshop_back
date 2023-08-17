@@ -44,7 +44,7 @@
                 <td>{{ $pet->especie->descricao }} - {{ $pet->raca->descricao }}</td>
                 <td>{{ $pet->peso }}</td>
                 <td>{{ $pet->sexo }}</td>
-                <td>
+                <td align="center">
                     @if ($pet->data_falecimento)
                     Sim
                     @else

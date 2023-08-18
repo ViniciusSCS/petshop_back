@@ -217,6 +217,27 @@
                 ]
             }
         },
+        "/pet/buscar": {
+            "get": {
+                "tags": [
+                    "Pet"
+                ],
+                "operationId": "975f70d2ce688bbc33af1c58744676a1",
+                "responses": {
+                    "200": {
+                        "description": "Lista os Pets buscados referentes ao usuário logado"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
         "/pet/editar/{id}": {
             "get": {
                 "tags": [

@@ -47,7 +47,15 @@ class PetService
         $userId = $request->user()->id;
         $isVeterinario = $request->user()->tipo_id == 1 ? true : false;
 
-        return $this->repository->list($request, $userId, $isVeterinario);
+        return $this->repository->list($userId, $isVeterinario);
+    }
+
+    public function search($request)
+    {
+        $userId = $request->user()->id;
+        $isVeterinario = $request->user()->tipo_id == 1 ? true : false;
+
+        return $this->repository->search($request, $userId, $isVeterinario);
     }
 
     public function select($request, $id)

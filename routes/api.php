@@ -40,7 +40,7 @@ Route::middleware('auth:api')->group(function () {
         Route::get('/editar/{id}', [PetController::class, 'edit']);
         Route::get('/select/{id}', [PetController::class, 'select']);
         Route::get('/relatorio', [PetController::class, 'petReport']);
-        Route::get('/buscar', [PetController::class, 'list']);
+        Route::get('/buscar', [PetController::class, 'search']);
         Route::put('/atualizar/{id}', [PetController::class, 'update']);
         Route::put('/pet-falecido/{id}', [PetController::class, 'demise']);
         Route::delete('/deletar/{id}', [PetController::class, 'delete']);

@@ -94,6 +94,22 @@ class PetController extends Controller
     /**
      * @OA\Get(
      *     tags={"Pet"},
+     *     path="/pet/buscar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Lista os Pets buscados referentes ao usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     */
+    public function search(Request $request)
+    {
+        $query = $this->service->search($request);
+
+        return ['status' => true, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
+    }
+
+    /**
+     * @OA\Get(
+     *     tags={"Pet"},
      *     path="/pet/editar/{id}",
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(

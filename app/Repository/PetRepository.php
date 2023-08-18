@@ -32,11 +32,19 @@ class PetRepository
         ]);
     }
 
-    public function list($request, $userId, $isVeterinario)
+    public function list($userId, $isVeterinario)
     {
         $query = $this->selectQuery($userId, $isVeterinario);
 
-        $query = $this->search($request, $query, $isVeterinario);
+        return $query
+            ->paginate(10);
+    }
+
+    public function search($request, $userId, $isVeterinario)
+    {
+        $query = $this->selectQuery($userId, $isVeterinario);
+
+        $query = $this->searchQuery($request, $query, $isVeterinario);
 
         return $query
             ->paginate(10);
@@ -82,7 +90,8 @@ class PetRepository
                     DATEDIFF(
                         IFNULL(data_falecimento, CURRENT_DATE),
                         DATE_ADD(data_nascimento, INTERVAL TIMESTAMPDIFF(MONTH, data_nascimento,
-                        IFNULL(data_falecimento, CURRENT_DATE)) MONTH)), ' dia(s)'
+                        IFNULL(data_falecimento, CURRENT_DATE)) MONTH)
+                    ), ' dia(s)'
                 ) as idade
             ")
         )
@@ -101,7 +110,7 @@ class PetRepository
         return $select;
     }
 
-    private function search($request, $query, $isVeterinario)
+    private function searchQuery($request, $query, $isVeterinario)
     {
         if ($request->has('nome')) {
             $query->where('nome', 'LIKE', '%' . $request->nome . '%');

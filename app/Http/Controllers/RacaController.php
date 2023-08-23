@@ -23,12 +23,15 @@ class RacaController extends Controller
      *      @OA\Parameter(
      *          name="id",
      *          description="Especie id",
-     *          in="/select/{id}",
+     *          in="path",
      *          required=true,
      *      ),
      *      @OA\Response(response="200", description="Apreseta a Raça selecionada de acordo com o ID da espécie escolhida"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @param Request $especie_id
+     * @return App\Models\Raca
      */
     public function select($especie_id)
     {

@@ -202,6 +202,15 @@
                     "Pet"
                 ],
                 "operationId": "1f64c3dff0e45a1862de6157a3265083",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": true,
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Lista os Pets cadastrados referentes ao usuário logado"
@@ -225,7 +234,7 @@
                 "operationId": "975f70d2ce688bbc33af1c58744676a1",
                 "responses": {
                     "200": {
-                        "description": "Lista os Pets buscados referentes ao usuário logado"
+                        "description": "Busca os Pets buscados referentes ao usuário logado"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"
@@ -247,7 +256,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/editar/{id}",
+                        "in": "path",
                         "description": "Pet id",
                         "required": true,
                         "schema": {
@@ -283,7 +292,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/select/{id}",
+                        "in": "path",
                         "description": "Pet id",
                         "required": true,
                         "schema": {
@@ -349,7 +358,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/atualizar/{id}",
+                        "in": "path",
                         "description": "Pet id",
                         "required": true,
                         "schema": {
@@ -453,7 +462,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/deletar/{id}",
+                        "in": "path",
                         "description": "Pet id",
                         "required": true,
                         "schema": {
@@ -576,7 +585,7 @@
                 "parameters": [
                     {
                         "name": "id",
-                        "in": "/select/{id}",
+                        "in": "path",
                         "description": "Especie id",
                         "required": true
                     }

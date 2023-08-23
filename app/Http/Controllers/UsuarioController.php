@@ -125,6 +125,8 @@ class UsuarioController extends Controller
      *      @OA\Response(response="200", description="Apreseta informações do usuário logado"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\User
      */
     public function user(Request $request)
     {

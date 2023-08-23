@@ -62,10 +62,12 @@ class MedicamentoController extends Controller
      *      @OA\Response(response="200", description="Lista os medicamentos cadastrados"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\Medicamento
      */
-    public function list(Request $request)
+    public function list()
     {
-        $medicamento = $this->service->list($request);
+        $medicamento = $this->service->list();
 
         return ['status' => true, "medicamento" => $medicamento];
     }

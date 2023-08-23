@@ -3,7 +3,6 @@
 namespace App\Repository;
 
 use App\Models\Medicamento;
-use App\Models\Procedimento;
 use Illuminate\Support\Facades\DB;
 
 class MedicamentoRepository

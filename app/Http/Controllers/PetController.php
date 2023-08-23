@@ -80,9 +80,17 @@ class PetController extends Controller
      *     tags={"Pet"},
      *     path="/pet/listar",
      *     security={{"bearerAuth": {}}},
+     *     @OA\Parameter(
+     *         name="name",
+     *         required=true,
+     *         @OA\Schema(type="sting")
+     *     ),
      *     @OA\Response(response="200", description="Lista os Pets cadastrados referentes ao usuário logado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @param Request $request
+     * @return App\Models\Pet
      */
     public function list(Request $request)
     {
@@ -96,9 +104,11 @@ class PetController extends Controller
      *     tags={"Pet"},
      *     path="/pet/buscar",
      *     security={{"bearerAuth": {}}},
-     *     @OA\Response(response="200", description="Lista os Pets buscados referentes ao usuário logado"),
+     *     @OA\Response(response="200", description="Busca os Pets buscados referentes ao usuário logado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\Pet
      */
     public function search(Request $request)
     {
@@ -115,7 +125,7 @@ class PetController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         description="Pet id",
-     *         in="/editar/{id}",
+     *         in="path",
      *         required=true,
      *         @OA\Schema(
      *              type="integer",
@@ -126,6 +136,9 @@ class PetController extends Controller
      *     @OA\Response(response="204", description="Pet não encotrado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @param $id
+     * @return App\Models\Pet
      */
     public function edit($id)
     {
@@ -147,7 +160,7 @@ class PetController extends Controller
      *      @OA\Parameter(
      *          name="id",
      *          description="Pet id",
-     *          in="/select/{id}",
+     *          in="path",
      *          required=true,
      *          @OA\Schema(
      *              type="integer",
@@ -157,6 +170,9 @@ class PetController extends Controller
      *      @OA\Response(response="200", description="Apreseta todos os Pets cadastrados referentes ao usuário logado"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @param Request $request, $id
+     * @return App\Models\Pet
      */
     public function select(Request $request, $id)
     {
@@ -197,7 +213,7 @@ class PetController extends Controller
      *     @OA\Parameter(
      *         name="id",
      *         description="Pet id",
-     *         in="/atualizar/{id}",
+     *         in="path",
      *         required=true,
      *         @OA\Schema(
      *              type="integer",
@@ -284,7 +300,7 @@ class PetController extends Controller
      *      @OA\Parameter(
      *          name="id",
      *          description="Pet id",
-     *          in="/deletar/{id}",
+     *          in="path",
      *          required=true,
      *          @OA\Schema(
      *              type="integer",
@@ -295,6 +311,9 @@ class PetController extends Controller
      *     @OA\Response(response="200", description="Apreseta informações do pet deletado ou Retorno do pet não encontrado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @param Request $request, $id
+     * @return App\Models\Pet
      */
     public function delete(Request $request, $id)
     {

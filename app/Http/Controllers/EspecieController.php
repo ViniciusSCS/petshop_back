@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Especie;
-use Illuminate\Http\Request;
 
 /**
  * Class EspecieController
@@ -23,6 +22,7 @@ class EspecieController extends Controller
      *      @OA\Response(response="200", description="Apreseta todas as Espécies"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     * @return App\Models\Especie
      */
     public function select()
     {

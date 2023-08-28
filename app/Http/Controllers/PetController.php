@@ -80,11 +80,6 @@ class PetController extends Controller
      *     tags={"Pet"},
      *     path="/pet/listar",
      *     security={{"bearerAuth": {}}},
-     *     @OA\Parameter(
-     *         name="name",
-     *         required=true,
-     *         @OA\Schema(type="sting")
-     *     ),
      *     @OA\Response(response="200", description="Lista os Pets cadastrados referentes ao usuário logado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
@@ -103,11 +98,17 @@ class PetController extends Controller
      * @OA\Get(
      *     tags={"Pet"},
      *     path="/pet/buscar",
+     *     @OA\Parameter(
+     *         name="name",
+     *         required=false,
+     *         @OA\Schema(type="sting")
+     *     ),
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(response="200", description="Busca os Pets buscados referentes ao usuário logado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
      *
+     * @param Request $request
      * @return App\Models\Pet
      */
     public function search(Request $request)

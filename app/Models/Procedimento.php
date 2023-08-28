@@ -26,6 +26,11 @@ class Procedimento extends Model
         'descricao_cirurgia',
     ];
 
+    public function pet()
+    {
+        return $this->hasOne(Pet::class, 'id', 'pet_id');
+    }
+
     public function tutor()
     {
         return $this->hasOne(User::class, 'id', 'user_id');

@@ -56,7 +56,7 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::prefix('raca')->group(function () {
-        Route::get('/select/{especie_id}', [RacaController::class, 'select']);
+        Route::get('/select/{especieId}', [RacaController::class, 'select']);
     });
 
     Route::prefix('especie')->group(function () {

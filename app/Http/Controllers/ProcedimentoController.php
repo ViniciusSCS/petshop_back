@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Procedimento;
 use App\Services\ProcedimentoService;
 use Illuminate\Http\Request;
 
@@ -27,7 +26,7 @@ class ProcedimentoController extends Controller
     /**
      * @OA\Post(
      *      tags={"Procedimento"},
-     *      path="/procedimeto/cadastro",
+     *      path="/procedimento/cadastro",
      *      security={{"bearerAuth": {}}},
      *      @OA\Parameter(
      *          name="pet_id",
@@ -84,12 +83,14 @@ class ProcedimentoController extends Controller
     /**
      * @OA\Get(
      *     tags={"Procedimento"},
-     *     path="/procedimeto/listar",
+     *     path="/procedimento/listar",
      *     security={{"bearerAuth": {}}},
      *     @OA\Response(response="200", description="Apresenta a informação do Pet selecionado"),
-     *     @OA\Response(response="204", description="Pet não encotrado"),
+     *     @OA\Response(response="204", description="Procedimento não encotrado"),
      *     @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\Procedimento
      */
     public function list()
     {

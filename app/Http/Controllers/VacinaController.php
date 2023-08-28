@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Vacina;
 use App\Services\VacinaService;
-use Illuminate\Http\Request;
 
 /**
  * Class VacinaController
@@ -31,6 +29,8 @@ class VacinaController extends Controller
      *      @OA\Response(response="200", description="Apreseta todas as Vacinas cadastradas"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\Vacina
      */
     public function select()
     {

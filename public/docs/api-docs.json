@@ -202,15 +202,6 @@
                     "Pet"
                 ],
                 "operationId": "1f64c3dff0e45a1862de6157a3265083",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "required": true,
-                        "schema": {
-                            "type": "sting"
-                        }
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Lista os Pets cadastrados referentes ao usuário logado"
@@ -232,6 +223,15 @@
                     "Pet"
                 ],
                 "operationId": "975f70d2ce688bbc33af1c58744676a1",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "required": false,
+                        "schema": {
+                            "type": "sting"
+                        }
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Busca os Pets buscados referentes ao usuário logado"
@@ -486,12 +486,12 @@
                 ]
             }
         },
-        "/procedimeto/cadastro": {
+        "/procedimento/cadastro": {
             "post": {
                 "tags": [
                     "Procedimento"
                 ],
-                "operationId": "eae4bf5c3eb75358368ac8880716b2eb",
+                "operationId": "e55be52e86fa7c61d10ad570767b2e6a",
                 "parameters": [
                     {
                         "name": "pet_id",
@@ -552,18 +552,18 @@
                 ]
             }
         },
-        "/procedimeto/listar": {
+        "/procedimento/listar": {
             "get": {
                 "tags": [
                     "Procedimento"
                 ],
-                "operationId": "100bf0648c2d99fe0055d0f9630abf1c",
+                "operationId": "9a916ad264eb077924496a81ee3a95dd",
                 "responses": {
                     "200": {
                         "description": "Apresenta a informação do Pet selecionado"
                     },
                     "204": {
-                        "description": "Pet não encotrado"
+                        "description": "Procedimento não encotrado"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"
@@ -605,12 +605,12 @@
                 ]
             }
         },
-        "/tipoMedicamento/cadastro": {
+        "/tipo_medicamento/cadastro": {
             "post": {
                 "tags": [
                     "TipoMedicamento"
                 ],
-                "operationId": "fc267eab5f6ba548a7bbb04185b788ea",
+                "operationId": "38c59d8903989d3e485839c23ba5b0ea",
                 "parameters": [
                     {
                         "name": "descricao",
@@ -635,12 +635,12 @@
                 ]
             }
         },
-        "/tipoMedicamento/listar/": {
+        "/tipo_medicamento/listar/": {
             "get": {
                 "tags": [
                     "TipoMedicamento"
                 ],
-                "operationId": "12c4946ab4bae33bd9a8718b07d56816",
+                "operationId": "2cc5ab3b5c5f43257f7559991c2a9121",
                 "responses": {
                     "200": {
                         "description": "Lista os tipos de medicamentos cadastrados"

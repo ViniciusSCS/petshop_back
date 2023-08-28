@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\TiposMedicamentos;
 use App\Http\Requests\TipoMedicamentoRequest;
 use App\Services\TipoMedicamentoService;
 
@@ -27,7 +26,7 @@ class TiposMedicamentosController extends Controller
     /**
      * @OA\Post(
      *     tags={"TipoMedicamento"},
-     *     path="/tipoMedicamento/cadastro",
+     *     path="/tipo_medicamento/cadastro",
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="descricao",
@@ -48,11 +47,13 @@ class TiposMedicamentosController extends Controller
     /**
      * @OA\Get(
      *      tags={"TipoMedicamento"},
-     *      path="/tipoMedicamento/listar/",
+     *      path="/tipo_medicamento/listar/",
      *      security={{"bearerAuth": {}}},
      *      @OA\Response(response="200", description="Lista os tipos de medicamentos cadastrados"),
      *      @OA\Response(response="401", description="Usuário não Autenticado"),
      * )
+     *
+     * @return App\Models\TiposMedicamentos
      */
     public function list()
     {

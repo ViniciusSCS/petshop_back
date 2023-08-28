@@ -22,14 +22,7 @@ class UserRepository
 
     public function me($id)
     {
-        $query = User::with('tipo_usuario')
-            ->with('pets')
-            ->with('pets.especie')
-            ->with('pets.raca')
-            ->where('id', $id)
-            ->get();
-
-        return $query;
+        return $this->query($id);
     }
 
     public function edit($data)
@@ -59,5 +52,15 @@ class UserRepository
         $user->update($dataUpdate);
 
         return $user;
+    }
+
+    private function query($id)
+    {
+        return User::with('tipo_usuario')
+            ->with('pets')
+            ->with('pets.especie')
+            ->with('pets.raca')
+            ->where('id', $id)
+            ->get();
     }
 }

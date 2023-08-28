@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Raca;
+use App\Services\RacaService;
 use Illuminate\Http\Request;
 
 /**
@@ -15,6 +16,13 @@ use Illuminate\Http\Request;
  */
 class RacaController extends Controller
 {
+    protected $service;
+
+    public function __construct(RacaService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Get(
      *      tags={"Raca"},
@@ -33,9 +41,9 @@ class RacaController extends Controller
      * @param Request $especie_id
      * @return App\Models\Raca
      */
-    public function select($especie_id)
+    public function select($especieId)
     {
-        $query = Raca::where('especie_id', $especie_id)->orWhere('especie_id', 4)->get();
+        $query = $this->service->select($especieId);
 
         return ['status' => true, "racas" => $query];
     }

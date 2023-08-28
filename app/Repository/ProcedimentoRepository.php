@@ -29,10 +29,14 @@ class ProcedimentoRepository
 
     public function list()
     {
-        $query = Procedimento::with('tutor')
-            ->with('veterinario_pet')
-            ->get();
 
-        return $query;
+        return $this->query()->paginate(10);
+    }
+
+    private function query()
+    {
+        return Procedimento::with('pet')
+            ->with('tutor')
+            ->with('veterinario_pet');
     }
 }

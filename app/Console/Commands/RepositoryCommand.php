@@ -54,6 +54,7 @@ namespace App\Repository;
 
 class ' . $name . '
 {
+    //
 }
 
         ');

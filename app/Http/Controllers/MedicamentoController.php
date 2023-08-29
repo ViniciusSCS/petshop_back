@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Medicamento;
 use App\Http\Requests\MedicamentoRequest;
 use App\Services\MedicamentoService;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class MedicamentoController

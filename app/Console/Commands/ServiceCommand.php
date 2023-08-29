@@ -54,6 +54,7 @@ namespace App\Services;
 
 class ' . $name . '
 {
+    //
 }
 
         ');

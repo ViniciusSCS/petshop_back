@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Especie;
+use App\Services\EspecieService;
 
 /**
  * Class EspecieController
@@ -14,6 +14,13 @@ use App\Models\Especie;
  */
 class EspecieController extends Controller
 {
+    protected $service;
+
+    public function __construct(EspecieService $service)
+    {
+        $this->service = $service;
+    }
+
     /**
      * @OA\Get(
      *      tags={"Especie"},
@@ -26,7 +33,7 @@ class EspecieController extends Controller
      */
     public function select()
     {
-        $query = Especie::all();
+        $query = $this->service->select();
 
         return ['status' => true, "especies" => $query];
     }

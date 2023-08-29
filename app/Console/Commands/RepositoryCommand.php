@@ -18,7 +18,7 @@ class RepositoryCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Create a new repository class';
 
     /**
      * Create a new command instance.

@@ -18,7 +18,7 @@ class ServiceCommand extends Command
      *
      * @var string
      */
-    protected $description = 'Create a new service';
+    protected $description = 'Create a new service class';
 
     /**
      * Create a new command instance.

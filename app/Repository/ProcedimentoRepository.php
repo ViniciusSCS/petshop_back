@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Models\Procedimento;
+use Illuminate\Support\Facades\DB;
 
 class ProcedimentoRepository
 {
@@ -29,14 +30,45 @@ class ProcedimentoRepository
 
     public function list()
     {
-
         return $this->query()->paginate(10);
+    }
+
+    public function search($request)
+    {
+        $query = $this->query();
+
+        $query = $this->searchQuery($query, $request);
+
+        return $query->paginate(10);
     }
 
     private function query()
     {
-        return Procedimento::with('pet')
+        return Procedimento::select(
+            '*',
+            DB::raw("date_format(data_castracao, '%d/%m/%Y') as data_castracao"),
+        )
+            ->with('pet')
             ->with('tutor')
             ->with('veterinario_pet');
+    }
+
+    private function searchQuery($query, $request)
+    {
+        if ($request->has('descricao_cirurgica')) {
+            $query->where('descricao_cirurgica', 'LIKE', '%' . $request->descricao_cirurgica . '%');
+        }
+
+        if ($request->has('data_castracao')) {
+            $query->where('data_castracao', $request->data_castracao);
+        }
+
+        if ($request->has('pet')) {
+            $query->whereHas('pet', function ($query) use ($request) {
+                $query->where('nome', 'LIKE',  '%' . $request->pet . '%');
+            });
+        }
+
+        return $query;
     }
 }

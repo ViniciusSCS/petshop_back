@@ -98,4 +98,11 @@ class ProcedimentoController extends Controller
 
         return ['status' => true, "procedimento" => $procedimento];
     }
+
+    public function search(Request $request)
+    {
+        $procedimento = $this->service->search($request);
+
+        return ['status' => true, "procedimento" => $procedimento];
+    }
 }

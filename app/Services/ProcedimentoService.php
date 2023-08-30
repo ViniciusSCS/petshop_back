@@ -25,4 +25,9 @@ class ProcedimentoService
     {
         return $this->repository->list();
     }
+
+    public function search($request)
+    {
+        return $this->repository->search($request);
+    }
 }

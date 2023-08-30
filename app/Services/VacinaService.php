@@ -17,4 +17,9 @@ class VacinaService
     {
         return $this->repository->findAll();
     }
+
+    public function search($request)
+    {
+        return $this->repository->search($request);
+    }
 }

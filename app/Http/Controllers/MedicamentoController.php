@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MedicamentoRequest;
 use App\Services\MedicamentoService;
+use Illuminate\Http\Request;
 
 /**
  * Class MedicamentoController
@@ -65,6 +66,25 @@ class MedicamentoController extends Controller
     public function list()
     {
         $medicamento = $this->service->list();
+
+        return ['status' => true, "medicamento" => $medicamento];
+    }
+
+    /**
+     * @OA\Get(
+     *     tags={"Medicamento"},
+     *     path="/medicamento/buscar",
+     *     security={{"bearerAuth": {}}},
+     *     @OA\Response(response="200", description="Busca os Pets buscados referentes ao usuário logado"),
+     *     @OA\Response(response="401", description="Usuário não Autenticado"),
+     * )
+     *
+     * @param Request $request
+     * @return App\Models\Medicamento
+     */
+    public function search(Request $request)
+    {
+        $medicamento = $this->service->search($request);
 
         return ['status' => true, "medicamento" => $medicamento];
     }

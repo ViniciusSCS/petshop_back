@@ -49,10 +49,12 @@ Route::middleware('auth:api')->group(function () {
     Route::prefix('procedimento')->group(function () {
         Route::get('/listar', [ProcedimentoController::class, 'list']);
         Route::post('/cadastro', [ProcedimentoController::class, 'create']);
+        Route::get('/buscar', [ProcedimentoController::class, 'search']);
     });
 
     Route::prefix('vacina')->group(function () {
         Route::get('/select', [VacinaController::class, 'select']);
+        Route::get('/buscar', [VacinaController::class, 'search']);
     });
 
     Route::prefix('raca')->group(function () {
@@ -67,6 +69,7 @@ Route::middleware('auth:api')->group(function () {
         Route::post('/cadastro', [MedicamentoController::class, 'create']);
         Route::get('/listar', [MedicamentoController::class, 'list']);
         Route::put('/atualizar/{id}', [MedicamentoController::class, 'update']);
+        Route::get('/buscar', [MedicamentoController::class, 'search']);
     });
 
     Route::prefix('tipo_medicamento')->group(function () {

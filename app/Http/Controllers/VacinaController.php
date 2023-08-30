@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Services\VacinaService;
+use Illuminate\Http\Request;
 
 /**
  * Class VacinaController
@@ -35,6 +36,13 @@ class VacinaController extends Controller
     public function select()
     {
         $vacina = $this->service->findAll();
+
+        return ['status' => true, "vacinas" => $vacina];
+    }
+
+    public function search(Request $request)
+    {
+        $vacina = $this->service->search($request);
 
         return ['status' => true, "vacinas" => $vacina];
     }

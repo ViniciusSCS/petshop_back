@@ -31,4 +31,9 @@ class MedicamentoService
     {
         return $this->repository->update($data, $id);
     }
+
+    public function search($request)
+    {
+        return $this->repository->search($request);
+    }
 }

@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 
 # Arguments defined in docker-compose.yml
-ARG user=herabox
+ARG user=petshop
 ARG uid=1000
 
 # Install system dependencies
@@ -31,6 +31,6 @@ RUN mkdir -p /home/$user/.composer && \
 # Set working directory
 WORKDIR /var/www
 
-RUN chown -R 755 /var/www
+RUN chmod -R 755 /var/www
 
 USER $user

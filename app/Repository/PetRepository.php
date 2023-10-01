@@ -95,12 +95,7 @@ class PetRepository
                 ) as idade
             ")
         )
-            ->with('tutor')
-            ->with('especie')
-            ->with('raca')
-            ->with('procedimento')
-            ->with('procedimento.tutor')
-            ->with('procedimento.veterinario_pet');
+            ->with('tutor', 'especie', 'raca', 'procedimento', 'procedimento.tutor', 'procedimento.veterinario_pet');
 
 
         if (!$isVeterinario) {

@@ -22,7 +22,7 @@ class UserRepository
 
     public function me($id)
     {
-        return $this->query($id);
+        return $this->query($id)->get();
     }
 
     public function edit($data)
@@ -56,11 +56,7 @@ class UserRepository
 
     private function query($id)
     {
-        return User::with('tipo_usuario')
-            ->with('pets')
-            ->with('pets.especie')
-            ->with('pets.raca')
-            ->where('id', $id)
-            ->get();
+        return User::with('tipo_usuario', 'pets', 'pets.especie', 'pets.raca')
+            ->where('id', $id);
     }
 }

@@ -48,9 +48,7 @@ class ProcedimentoRepository
             '*',
             DB::raw("date_format(data_castracao, '%d/%m/%Y') as data_castracao"),
         )
-            ->with('pet')
-            ->with('tutor')
-            ->with('veterinario_pet');
+            ->with('pet', 'tutor', 'veterinario_pet');
     }
 
     private function searchQuery($query, $request)

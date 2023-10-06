@@ -4,11 +4,9 @@
         "title": "Sistema PetShop",
         "version": "2.02.3"
     },
-    "servers": [
-        {
-            "url": "http://localhost:8010/api"
-        }
-    ],
+    "servers": [{
+        "url": "http://projeto_petshop.test:8010/api"
+    }],
     "paths": {
         "/especie/select": {
             "get": {
@@ -24,11 +22,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/medicamento/cadastro": {
@@ -37,8 +33,7 @@
                     "Medicamento"
                 ],
                 "operationId": "e183d8d9589ff03f389f9a737fb9aa67",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "descricao",
                         "required": "true"
                     },
@@ -62,11 +57,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/medicamento/listar/": {
@@ -83,11 +76,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/medicamento/buscar": {
@@ -104,11 +95,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/medicamento/atualizar/{id}": {
@@ -117,8 +106,7 @@
                     "Medicamento"
                 ],
                 "operationId": "7fc5c2bebeb79b290f485e97b4da075f",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "id",
                         "in": "/atualizar/{id}",
                         "description": "Medicameto id",
@@ -152,11 +140,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/cadastro": {
@@ -165,8 +151,7 @@
                     "Pet"
                 ],
                 "operationId": "ebffda1a650c3e5de2ba1e198b1c5c0f",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "name",
                         "required": true
                     },
@@ -210,11 +195,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/listar": {
@@ -231,11 +214,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/buscar": {
@@ -244,15 +225,13 @@
                     "Pet"
                 ],
                 "operationId": "975f70d2ce688bbc33af1c58744676a1",
-                "parameters": [
-                    {
-                        "name": "name",
-                        "required": false,
-                        "schema": {
-                            "type": "sting"
-                        }
+                "parameters": [{
+                    "name": "name",
+                    "required": false,
+                    "schema": {
+                        "type": "sting"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Busca os Pets buscados referentes ao usuário logado"
@@ -261,11 +240,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/editar/{id}": {
@@ -274,18 +251,16 @@
                     "Pet"
                 ],
                 "operationId": "c9b50115ddfe3f1d6016d6045a1279f4",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Pet id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Pet id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Apresenta a informação do Pet selecionado"
@@ -297,11 +272,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/select/{id}": {
@@ -310,18 +283,16 @@
                     "Pet"
                 ],
                 "operationId": "e912ab4201db8c322d9752b0df9d77ae",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Pet id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Pet id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Apreseta todos os Pets cadastrados referentes ao usuário logado"
@@ -330,11 +301,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/relatorio/pet/{id}": {
@@ -343,18 +312,16 @@
                     "Pet"
                 ],
                 "operationId": "0e5998a38bdb0360495f777477dce541",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "/relatorio/pet/{id}",
-                        "description": "Pet id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                "parameters": [{
+                    "name": "id",
+                    "in": "/relatorio/pet/{id}",
+                    "description": "Pet id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Apreseta o relatório"
@@ -363,11 +330,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/atualizar/{id}": {
@@ -376,8 +341,7 @@
                     "Pet"
                 ],
                 "operationId": "e6156b83407bf6a57622d8afd2ea738a",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "id",
                         "in": "path",
                         "description": "Pet id",
@@ -434,11 +398,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/pet-falecido/{id}": {
@@ -447,18 +409,16 @@
                     "Pet"
                 ],
                 "operationId": "c1f771789fb4bf7ebbb687c2d9050d6a",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "/pet-falecido/{id}",
-                        "description": "Pet id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                "parameters": [{
+                    "name": "id",
+                    "in": "/pet-falecido/{id}",
+                    "description": "Pet id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Apreseta informações do pet falecido ou Retorno do pet não encontrado"
@@ -467,11 +427,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/pet/deletar/{id}": {
@@ -480,18 +438,16 @@
                     "Pet"
                 ],
                 "operationId": "88a1c5508792b2eeed71ba063b88205d",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Pet id",
-                        "required": true,
-                        "schema": {
-                            "type": "integer",
-                            "format": "int64"
-                        }
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Pet id",
+                    "required": true,
+                    "schema": {
+                        "type": "integer",
+                        "format": "int64"
                     }
-                ],
+                }],
                 "responses": {
                     "200": {
                         "description": "Apreseta informações do pet deletado ou Retorno do pet não encontrado"
@@ -500,11 +456,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/procedimento/cadastro": {
@@ -513,8 +467,7 @@
                     "Procedimento"
                 ],
                 "operationId": "e55be52e86fa7c61d10ad570767b2e6a",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "pet_id",
                         "required": true
                     },
@@ -566,11 +519,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/procedimento/listar": {
@@ -590,11 +541,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/raca/select/{id}": {
@@ -603,14 +552,12 @@
                     "Raca"
                 ],
                 "operationId": "3210523ba4683dd26a2c8c7178f3f829",
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "Especie id",
-                        "required": true
-                    }
-                ],
+                "parameters": [{
+                    "name": "id",
+                    "in": "path",
+                    "description": "Especie id",
+                    "required": true
+                }],
                 "responses": {
                     "200": {
                         "description": "Apreseta a Raça selecionada de acordo com o ID da espécie escolhida"
@@ -619,11 +566,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/tipo_medicamento/cadastro": {
@@ -632,12 +577,10 @@
                     "TipoMedicamento"
                 ],
                 "operationId": "38c59d8903989d3e485839c23ba5b0ea",
-                "parameters": [
-                    {
-                        "name": "descricao",
-                        "required": true
-                    }
-                ],
+                "parameters": [{
+                    "name": "descricao",
+                    "required": true
+                }],
                 "responses": {
                     "200": {
                         "description": "Cadastra os Tipos de medicamentos"
@@ -649,11 +592,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/tipo_medicamento/listar/": {
@@ -670,11 +611,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/login": {
@@ -683,8 +622,7 @@
                     "User"
                 ],
                 "operationId": "e8c53dec7a99697063f337ac03268dfe",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "email",
                         "required": true
                     },
@@ -720,11 +658,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/user/cadastro": {
@@ -733,8 +669,7 @@
                     "User"
                 ],
                 "operationId": "5626d3474d87206d10a628ccb209c7c3",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "name",
                         "required": true
                     },
@@ -778,11 +713,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/user/edit": {
@@ -791,8 +724,7 @@
                     "User"
                 ],
                 "operationId": "17cc4fc658878ec5b4d9884c2bacf646",
-                "parameters": [
-                    {
+                "parameters": [{
                         "name": "name",
                         "required": true
                     },
@@ -820,11 +752,9 @@
                         "description": "Erro em algum campo obrigatório"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/user/deletar": {
@@ -841,11 +771,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         },
         "/vacina/select/": {
@@ -862,11 +790,9 @@
                         "description": "Usuário não Autenticado"
                     }
                 },
-                "security": [
-                    {
-                        "bearerAuth": []
-                    }
-                ]
+                "security": [{
+                    "bearerAuth": []
+                }]
             }
         }
     },

@@ -9,7 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use OpenApi\Annotations as OA;
 
 /**
- * @OA\Server(url="http://localhost:8010/api"),
+ * @OA\Server(url="http://projeto_petshop.test:8010/api"),
  * @OA\Info(title="Sistema PetShop", version="2.02.3")
  * @OA\SecurityScheme(
  *      type="http",

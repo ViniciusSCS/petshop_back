@@ -6,7 +6,7 @@
     },
     "servers": [
         {
-            "url": "http://localhost:8000/api"
+            "url": "http://localhost:8010/api"
         }
     ],
     "paths": {
@@ -78,6 +78,27 @@
                 "responses": {
                     "200": {
                         "description": "Lista os medicamentos cadastrados"
+                    },
+                    "401": {
+                        "description": "Usuário não Autenticado"
+                    }
+                },
+                "security": [
+                    {
+                        "bearerAuth": []
+                    }
+                ]
+            }
+        },
+        "/medicamento/buscar": {
+            "get": {
+                "tags": [
+                    "Medicamento"
+                ],
+                "operationId": "fea005aa3829ffdcf3ce4cbcd42f7a74",
+                "responses": {
+                    "200": {
+                        "description": "Busca os Pets buscados referentes ao usuário logado"
                     },
                     "401": {
                         "description": "Usuário não Autenticado"

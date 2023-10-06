@@ -12,6 +12,7 @@ services:
             - ./:/var/www
         networks:
             - petshop
+            - docker_nginx_petshop
 
     # nginx
     nginx:
@@ -24,6 +25,7 @@ services:
             - ./nginx/conf.d/:/etc/nginx/conf.d/
         networks:
             - petshop
+            - docker_nginx_petshop
 
     # mysql
     db_petshop:
@@ -40,7 +42,10 @@ services:
             - ./.docker/mysql/dbdata:/var/lib/mysql
         networks:
             - petshop
+            - docker_nginx_petshop
 
 networks:
     petshop:
-        driver: bridge
+    docker_nginx_petshop:
+        external: true
+          

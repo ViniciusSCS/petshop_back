@@ -51,8 +51,13 @@ class UserRequest extends FormRequest
             'max' => 'O campo :attribute deve ter no máximo :max.',
             'email' => 'O campo :attribute não é válido',
             'unique' => 'O campo :attribute deve ser único.',
-            'confirmed' => 'O campo :attribute não confere. ',
-            'same' => 'Os campos confirmação da senha e senha devem corresponder.'
+            'confirmed' => 'O campo :attribute não confere.',
+            'same' => 'Os campos confirmação da senha e senha devem corresponder.',
+            'min' => 'O campo :attribute deve ter no mínimo :min caracteres.',
+            'letters' => 'O campo :attribute deve conter ao menos uma letra.',
+            'mixedCase' => 'O campo :attribute deve conter ao menos uma letra maiúscula e uma letra minúscula.',
+            'symbols' => 'O campo :attribute deve conter ao menos um simbolo.',
+            'numbers' => 'O campo :attribute deve conter ao menos um número.'
         ];
     }
 }

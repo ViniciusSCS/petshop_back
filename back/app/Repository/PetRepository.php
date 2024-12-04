@@ -80,7 +80,7 @@ class PetRepository
     private function selectQuery($userId, $isVeterinario)
     {
         $select = Pet::select(
-            '*',
+            'id', 'nome', 'raca_id', 'especie_id', 'data_nascimento', 'data_falecimento', 'peso', 'sexo', 'user_id',
             DB::raw("date_format(data_nascimento, '%d/%m/%Y') as data_nascimento"),
             DB::raw("date_format(data_falecimento, '%d/%m/%Y') as data_falecimento"),
             DB::raw("
@@ -95,7 +95,14 @@ class PetRepository
                 ) as idade
             ")
         )
-            ->with('tutor', 'especie', 'raca', 'procedimento', 'procedimento.tutor', 'procedimento.veterinario_pet');
+            ->with(
+                'tutor:id,name,email',
+                'especie:id,descricao',
+                'raca:id,descricao',
+                'procedimento',
+                'procedimento.tutor',
+                'procedimento.veterinario_pet'
+            );
 
 
         if (!$isVeterinario) {

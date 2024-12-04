@@ -1,11 +1,10 @@
-version: "3.7"
 services:
     # imagem
     api:
         container_name: petshop-php
         build:
-            context: ./docker/php
-            dockerfile: Dockerfile
+            context: .
+            dockerfile: ./docker/php/Dockerfile
         image: laravel-app
         restart: unless-stopped
         working_dir: /var/www/

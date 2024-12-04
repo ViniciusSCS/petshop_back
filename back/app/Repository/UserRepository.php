@@ -56,7 +56,7 @@ class UserRepository
 
     private function query($id)
     {
-        return User::with('tipo_usuario', 'pets', 'pets.especie', 'pets.raca')
+        return User::with('tipo_usuario:id,descricao', 'pets', 'pets.especie:id,descricao', 'pets.raca:id,descricao')
             ->where('id', $id);
     }
 }

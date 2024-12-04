@@ -38,8 +38,21 @@ RUN mkdir -p /usr/src/php/ext/redis; \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+# Copia apenas o conteúdo do backend (pasta back/) para o container
+COPY ./back/ /var/www/
+
+# Cria o grupo e o usuário 'laravel'
 RUN groupadd -g 1000 laravel
-RUN useradd -u 1000 -ms /bin/bash -g laravel user
+RUN useradd -u 1000 -ms /bin/bash -g laravel laravel
+
+# Garante permissões adequadas para os arquivos
+RUN chown -R laravel:laravel /var/www && chmod -R 755 /var/www
+
+# Instala as dependências do Composer
+RUN composer install --no-interaction --optimize-autoloader
+
+#RUN groupadd -g 1000 laravel
+#RUN useradd -u 1000 -ms /bin/bash -g laravel user
 
 EXPOSE 9000
 

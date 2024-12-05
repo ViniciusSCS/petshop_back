@@ -33,16 +33,12 @@ class UsuarioService
         return $query;
     }
 
-    public function edit($request)
+    public function update($request)
     {
-        $user = $request->user();
+        $user = auth()->user();
         $data = $request->all();
 
-        $dataUpdate = $this->repository->edit($data);
-
-        $user = $this->repository->update($dataUpdate, $user->id);
-
-        $user->token = $user->createToken($user->email)->accessToken;
+        $user = $this->repository->update($data, $user->id);
 
         return $user;
     }

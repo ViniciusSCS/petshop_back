@@ -26,42 +26,28 @@ class UserUpdateRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->filled('password')) {
-            return [
-                'name' => 'required|string|max:255',
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore(Auth::user()->id)
-                ],
-                'tipo' => 'required',
-                'password' => [
-                    'required',
-                    'string',
-                    'confirmed',
-                    Password::min(8)
-                        ->letters()
-                        ->mixedCase()
-                        ->numbers()
-                        ->symbols()
-                        ->uncompromised(),
-                ],
-                'password_confirmation' => 'required|same:password'
-            ];
-        } else {
-            return [
-                'name' => 'required|string|max:255',
-                'email' => [
-                    'required',
-                    'string',
-                    'email',
-                    'max:255',
-                    Rule::unique('users')->ignore(Auth::user()->id)
-                ],
-                'tipo' => 'required',
-            ];
-        }
+        return [
+            'name' => 'sometimes|string|max:255',
+            'email' => [
+                'sometimes',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users')->ignore(Auth::user()->id)
+            ],
+            'tipo' => 'sometimes',
+            'password' => [
+                'sometimes',
+                'string',
+                'confirmed',
+                Password::min(8)
+                    ->letters()
+                    ->mixedCase()
+                    ->numbers()
+                    ->symbols()
+                    ->uncompromised(),
+            ],
+            'password_confirmation' => 'sometimes|same:password'
+        ];
     }
 }

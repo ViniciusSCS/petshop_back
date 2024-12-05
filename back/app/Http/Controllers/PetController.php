@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Constants\Geral;
 use App\Services\PetService;
 use Illuminate\Http\Request;
-use App\Http\Requests\PetRequest;
-use App\Http\Requests\PetDemiseRequest;
+use App\Http\Requests\{
+    PetRequest,
+    PetDemiseRequest,
+    PetUpdateRequest
+};
 
 /**
  * Class PetController
@@ -261,7 +264,7 @@ class PetController extends Controller
      *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
      * )
      */
-    public function update(PetRequest $request, $id)
+    public function update(PetUpdateRequest $request, $id)
     {
         $pet = $this->service->update($request, $id);
 

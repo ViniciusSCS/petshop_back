@@ -138,7 +138,7 @@ class UsuarioController extends Controller
     /**
      * @OA\Put(
      *     tags={"User"},
-     *     path="/user/edit",
+     *     path="/user/atualizar",
      *     security={{"bearerAuth": {}}},
      *     @OA\Parameter(
      *         name="name",
@@ -161,11 +161,11 @@ class UsuarioController extends Controller
      *     @OA\Response(response="422", description="Erro em algum campo obrigatório"),
      * )
      */
-    public function edit(UserUpdateRequest $request)
+    public function update(UserUpdateRequest $request)
     {
-        $user = $this->service->edit($request);
+        $user = $this->service->update($request);
 
-        return ['status' => true, 'message' => Geral::USUARIO_ENCONTRADO, "usuario" => $user];
+        return ['status' => true, 'message' => Geral::USUARIO_ATUALIZADO, "usuario" => $user];
     }
 
     /**

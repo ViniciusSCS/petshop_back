@@ -29,7 +29,7 @@ Route::post('/cadastro', [UsuarioController::class, 'create']);
 Route::middleware('auth:api')->group(function () {
     Route::prefix('user')->group(function () {
         Route::get('/', [UsuarioController::class, 'user']);
-        Route::put('/editar', [UsuarioController::class, 'edit']);
+        Route::put('/atualizar', [UsuarioController::class, 'update']);
         Route::post('/logout', [UsuarioController::class, 'logout']);
         Route::delete('/deletar', [UsuarioController::class, 'delete']);
     });

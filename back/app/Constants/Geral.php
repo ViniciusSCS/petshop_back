@@ -25,6 +25,6 @@ class Geral
     const USUARIO_DESLOGADO = 'Usuário deslogado com sucesso!';
     const USUARIO_CADASTRADO = 'Usuário cadastrado com sucesso!';
     const USUARIO_ME = 'Usuário Logado!';
-    const USUARIO_ENCONTRADO = 'Usuário encontrado!';
+    const USUARIO_ATUALIZADO = 'Usuário atualizado!';
     const USUARIO_DELETADO = 'Usuário deletado com sucesso!';
 }

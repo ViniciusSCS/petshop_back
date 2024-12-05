@@ -25,26 +25,6 @@ class UserRepository
         return $this->query($id)->get();
     }
 
-    public function edit($data)
-    {
-        if (isset($data['password'])) {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-                'password'  => bcrypt($data['password'])
-            ];
-        } else {
-            $data = [
-                'name' => $data['name'],
-                'email' => strtolower($data['email']),
-                'tipo_id' => $data['tipo'],
-            ];
-        }
-
-        return $data;
-    }
-
     public function update($dataUpdate, $id)
     {
         $user = User::find($id);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProcedimentoRequest;
 use App\Services\ProcedimentoService;
 use Illuminate\Http\Request;
 
@@ -73,7 +74,7 @@ class ProcedimentoController extends Controller
      *      @OA\Response(response="422", description="Erro em algum campo obrigatório"),
      * )
      */
-    public function create(Request $request)
+    public function create(ProcedimentoRequest $request)
     {
         $procedimento = $this->service->create($request);
 

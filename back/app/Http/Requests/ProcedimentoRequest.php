@@ -6,7 +6,7 @@ use App\Constants\Geral;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
 
-class TipoMedicamentoRequest extends FormRequest
+class ProcedimentoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,13 +26,7 @@ class TipoMedicamentoRequest extends FormRequest
     public function rules()
     {
         return [
-            'descricao' => 'required|string',
+            //
         ];
-    }
-
-    public function failedAuthorization()
-    {
-        $message = 'Você não tem permissão para acessar esta funcionalidade.';
-        abort(403, $message);
     }
 }

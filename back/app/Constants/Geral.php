@@ -5,7 +5,8 @@ namespace App\Constants;
 class Geral
 {
     // Geral
-
+    const VETERINARIO = 1;
+    const TUTOR = 2;
     const TITLE_REPORT = 'Relatório de Pets';
 
     // Pets

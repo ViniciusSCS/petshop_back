@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Constants\Geral;
 use Illuminate\Foundation\Http\FormRequest;
 
 use Illuminate\Support\Facades\Auth;
@@ -15,13 +16,7 @@ class MedicamentoRequest extends FormRequest
      */
     public function authorize()
     {
-        $isVeterinario = Auth::user()->tipo_id == 1;
-
-        if($isVeterinario == false){
-            $this->failedAuthorization();
-        }
-
-        return $isVeterinario;
+        return Auth::check() && Auth::user()->tipo_id == Geral::VETERINARIO;
     }
 
     /**

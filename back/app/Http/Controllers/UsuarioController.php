@@ -186,4 +186,14 @@ class UsuarioController extends Controller
 
         return ['status' => 200, 'message' => Geral::USUARIO_DELETADO, "usuario" => $user];
     }
+
+    public function select()
+    {
+        $user = $this->service->select();
+
+        return [
+            'status' => 201,
+            'usuarios' => $user
+        ];
+    }
 }

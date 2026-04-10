@@ -55,4 +55,9 @@ class UsuarioService
 
         return $user;
     }
+
+    public function select()
+    {
+        return $this->repository->select();
+    }
 }

@@ -21,8 +21,14 @@ class PetService
 
     public function create(PetRequest $request)
     {
-        $userId = $request->user()->id;
+        $user = Auth::user();
         $data = $request->all();
+
+        if ($user->tipo_id === Geral::VETERINARIO) {
+            $userId = $data['user_id'];
+        } else {
+            $userId = $user->id;
+        }
 
         $pet = $this->repository->create($data, $userId);
 

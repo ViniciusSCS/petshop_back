@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Constants\Geral;
 use App\Models\User;
 
 class UserRepository
@@ -32,6 +33,11 @@ class UserRepository
         $user->update($dataUpdate);
 
         return $user;
+    }
+
+    public function select()
+    {
+        return User::select('id', 'name')->where('tipo_id', Geral::TUTOR)->get();
     }
 
     private function query($id)

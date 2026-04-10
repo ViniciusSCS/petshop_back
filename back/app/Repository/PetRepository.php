@@ -106,7 +106,7 @@ class PetRepository
 
 
         if (!$isVeterinario) {
-            $select->where('user_id', '=', DB::raw("'" . $userId . "'"));
+            $select->where('user_id', $userId);
         }
 
         return $select;

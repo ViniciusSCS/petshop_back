@@ -3,17 +3,20 @@
 namespace App\Services;
 
 use App\Constants\Geral;
+use App\Repository\UserRepository;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Requests\PetRequest;
 use App\Repository\PetRepository;
+use Illuminate\Support\Facades\Auth;
 
 class PetService
 {
     protected $repository;
 
-    public function __construct(PetRepository $repository)
+    public function __construct(PetRepository $repository, UserRepository $userRepository)
     {
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
     }
 
     public function create(PetRequest $request)
@@ -34,12 +37,17 @@ class PetService
     public function update($request, $id)
     {
         $data = $request->all();
+        $tutor = Auth::user();
 
         $pet = $this->repository->find($id);
 
-        $pet->update($data);
+        if($tutor->id == $pet->user_id){
+            $pet->update($data);
 
-        return $pet;
+            return $pet;
+        }
+
+        return ['status' => false, 'message' => "Pet não encontrado"];
     }
 
     public function list($request)

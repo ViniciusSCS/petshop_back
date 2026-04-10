@@ -41,7 +41,7 @@ class TiposMedicamentosController extends Controller
     {
         $tipoMedicamento = $this->service->create($request);
 
-        return ['status' => true, "tiposMedicamentos" => $tipoMedicamento];
+        return ['status' => 201, "tiposMedicamentos" => $tipoMedicamento];
     }
 
     /**
@@ -59,6 +59,6 @@ class TiposMedicamentosController extends Controller
     {
         $tipoMedicamentos = $this->service->list();
 
-        return ['status' => true, "tiposMedicamentos" => $tipoMedicamentos];
+        return ['status' => 201, "tiposMedicamentos" => $tipoMedicamentos];
     }
 }

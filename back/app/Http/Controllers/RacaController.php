@@ -45,6 +45,6 @@ class RacaController extends Controller
     {
         $query = $this->service->select($especieId);
 
-        return ['status' => true, "racas" => $query];
+        return ['status' => 201, "racas" => $query];
     }
 }

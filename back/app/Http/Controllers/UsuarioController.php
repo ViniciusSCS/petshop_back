@@ -56,13 +56,13 @@ class UsuarioController extends Controller
             $user = auth()->user();
 
             if ($user->isAtivo != 1) {
-                return ['status' => false, 'message' => Geral::USUARIO_DELETADO_INATIVO];
+                return ['status' => 404, 'message' => Geral::USUARIO_DELETADO_INATIVO];
             }
 
             $user->token = $user->createToken($user->email)->accessToken;
-            return ['status' => true, 'message' => Geral::USUARIO_LOGADO, "usuario" => $user];
+            return ['status' => 201, 'message' => Geral::USUARIO_LOGADO, "usuario" => $user];
         } else {
-            return ['status' => false, 'message' => Geral::USUARIO_INCORRETO];
+            return ['status' => 401, 'message' => Geral::USUARIO_INCORRETO];
         }
     }
 
@@ -82,7 +82,7 @@ class UsuarioController extends Controller
 
         $this->tokenRepository->revokeAccessToken($tokenId);
 
-        return ['status' => true, 'message' => Geral::USUARIO_DESLOGADO];
+        return ['status' => 204, 'message' => Geral::USUARIO_DESLOGADO];
     }
 
     /**
@@ -114,7 +114,7 @@ class UsuarioController extends Controller
     {
         $user = $this->service->create($request);
 
-        return ['status' => true, 'message' => Geral::USUARIO_CADASTRADO, "usuario" => $user];
+        return ['status' => 201, 'message' => Geral::USUARIO_CADASTRADO, "usuario" => $user];
     }
 
     /**
@@ -132,7 +132,7 @@ class UsuarioController extends Controller
     {
         $user = $this->service->user($request);
 
-        return ['status' => true, 'message' => Geral::USUARIO_ME, "usuario" => $user];
+        return ['status' => 200, 'message' => Geral::USUARIO_ME, "usuario" => $user];
     }
 
     /**
@@ -165,7 +165,7 @@ class UsuarioController extends Controller
     {
         $user = $this->service->update($request);
 
-        return ['status' => true, 'message' => Geral::USUARIO_ATUALIZADO, "usuario" => $user];
+        return ['status' => 201, 'message' => Geral::USUARIO_ATUALIZADO, "usuario" => $user];
     }
 
     /**
@@ -184,6 +184,6 @@ class UsuarioController extends Controller
         $tokenId = $request->user()->token()->id;
         $this->tokenRepository->revokeAccessToken($tokenId);
 
-        return ['status' => true, 'message' => Geral::USUARIO_DELETADO, "usuario" => $user];
+        return ['status' => 200, 'message' => Geral::USUARIO_DELETADO, "usuario" => $user];
     }
 }

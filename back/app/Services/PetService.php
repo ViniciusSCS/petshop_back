@@ -47,7 +47,7 @@ class PetService
             return $pet;
         }
 
-        return ['status' => false, 'message' => "Pet não encontrado"];
+        return ['status' => 404, 'message' => "Pet não encontrado"];
     }
 
     public function list($request)

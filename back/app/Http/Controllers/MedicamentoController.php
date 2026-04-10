@@ -49,7 +49,7 @@ class MedicamentoController extends Controller
     {
         $medicamento = $this->service->create($request);
 
-        return ['status' => true, "medicamento" => $medicamento];
+        return ['status' => 201, "medicamento" => $medicamento];
     }
 
     /**
@@ -67,7 +67,7 @@ class MedicamentoController extends Controller
     {
         $medicamento = $this->service->list();
 
-        return ['status' => true, "medicamento" => $medicamento];
+        return ['status' => 201, "medicamento" => $medicamento];
     }
 
     /**
@@ -86,7 +86,7 @@ class MedicamentoController extends Controller
     {
         $medicamento = $this->service->search($request);
 
-        return ['status' => true, "medicamento" => $medicamento];
+        return ['status' => 201, "medicamento" => $medicamento];
     }
 
     /**
@@ -127,6 +127,6 @@ class MedicamentoController extends Controller
 
         $medicamento = $this->service->update($data, $id);
 
-        return ['status' => true, 'medicamento' => $medicamento];
+        return ['status' => 201, 'medicamento' => $medicamento];
     }
 }

@@ -77,7 +77,7 @@ class ProcedimentoController extends Controller
     {
         $procedimento = $this->service->create($request);
 
-        return ['status' => true, "procedimento" => $procedimento];
+        return ['status' => 201, "procedimento" => $procedimento];
     }
 
     /**
@@ -96,13 +96,13 @@ class ProcedimentoController extends Controller
     {
         $procedimento = $this->service->list();
 
-        return ['status' => true, "procedimento" => $procedimento];
+        return ['status' => 201, "procedimento" => $procedimento];
     }
 
     public function search(Request $request)
     {
         $procedimento = $this->service->search($request);
 
-        return ['status' => true, "procedimento" => $procedimento];
+        return ['status' => 201, "procedimento" => $procedimento];
     }
 }

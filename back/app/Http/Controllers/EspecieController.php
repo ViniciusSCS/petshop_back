@@ -35,6 +35,6 @@ class EspecieController extends Controller
     {
         $query = $this->service->select();
 
-        return ['status' => true, "especies" => $query];
+        return ['status' => 201, "especies" => $query];
     }
 }

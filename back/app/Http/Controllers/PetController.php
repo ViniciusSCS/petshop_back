@@ -75,7 +75,7 @@ class PetController extends Controller
     {
         $pet = $this->service->create($request);
 
-        return ['status' => true, "messages" => Geral::PET_CADASTRADO, "pet" => $pet];
+        return ['status' => 201, "messages" => Geral::PET_CADASTRADO, "pet" => $pet];
     }
 
     /**
@@ -94,7 +94,7 @@ class PetController extends Controller
     {
         $query = $this->service->list($request);
 
-        return ['status' => true, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
+        return ['status' => 201, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
     }
 
     /**
@@ -118,7 +118,7 @@ class PetController extends Controller
     {
         $query = $this->service->search($request);
 
-        return ['status' => true, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
+        return ['status' => 201, "messages" => Geral::PET_ENCONTRADOS, "pets" => $query];
     }
 
     /**
@@ -149,8 +149,8 @@ class PetController extends Controller
         $pet = $this->service->edit($id);
 
         $info = ($pet == NULL ?
-            ['status' => false, 'message' => Geral::PET_NAO_ENCONTRADO] :
-            ['status' => true, 'message' => Geral::PET_ENCONTRADOS, "pet" => $pet]
+            ['status' => 404, 'message' => Geral::PET_NAO_ENCONTRADO] :
+            ['status' => 201, 'message' => Geral::PET_ENCONTRADOS, "pet" => $pet]
         );
 
         return $info;
@@ -182,7 +182,7 @@ class PetController extends Controller
     {
         $query = $this->service->select($request, $id);
 
-        return ['status' => true, 'message' => Geral::PET_ENCONTRADOS, "pet" => $query];
+        return ['status' => 201, 'message' => Geral::PET_ENCONTRADOS, "pet" => $query];
     }
 
     /**
@@ -268,7 +268,7 @@ class PetController extends Controller
     {
         $pet = $this->service->update($request, $id);
 
-        return ['status' => true, 'message' => Geral::PET_ATUALIZADO, "pet" => $pet];
+        return ['status' => 201, 'message' => Geral::PET_ATUALIZADO, "pet" => $pet];
     }
 
     /**
@@ -294,7 +294,7 @@ class PetController extends Controller
     {
         $petDemise = $this->service->demise($request, $id);
 
-        return ['status' => true, 'message' => Geral::PET_LAMENTACAO . $petDemise->nome, "pet" => $petDemise];
+        return ['status' => 201, 'message' => Geral::PET_LAMENTACAO . $petDemise->nome, "pet" => $petDemise];
     }
 
     /**
@@ -324,8 +324,8 @@ class PetController extends Controller
         $pet = $this->service->delete($request, $id);
 
         $info = ($pet == NULL ?
-            ['status' => false, 'message' => Geral::PET_NAO_ENCONTRADO] :
-            ['status' => true, 'message' => Geral::PET_EXCLUIDO, "pet" => $pet]
+            ['status' => 400, 'message' => Geral::PET_NAO_ENCONTRADO] :
+            ['status' => 201, 'message' => Geral::PET_EXCLUIDO, "pet" => $pet]
         );
 
         return $info;

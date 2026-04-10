@@ -37,13 +37,13 @@ class VacinaController extends Controller
     {
         $vacina = $this->service->findAll();
 
-        return ['status' => true, "vacinas" => $vacina];
+        return ['status' => 201, "vacinas" => $vacina];
     }
 
     public function search(Request $request)
     {
         $vacina = $this->service->search($request);
 
-        return ['status' => true, "vacinas" => $vacina];
+        return ['status' => 201, "vacinas" => $vacina];
     }
 }

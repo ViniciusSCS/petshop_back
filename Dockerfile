@@ -20,14 +20,23 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Copia projeto
 COPY ./back/ /var/www/
 
-# Permissões
+# Permissões básicas
 RUN chown -R www-data:www-data /var/www
 
-# Instala dependências
+# Dependências
 RUN composer install --no-dev --optimize-autoloader
 
-# Porta do Render
+# 🧠 IMPORTANTE: garantir storage e bootstrap
+RUN mkdir -p storage/framework/{cache,sessions,views} \
+    storage/logs \
+    bootstrap/cache
+
+RUN chown -R www-data:www-data storage bootstrap/cache
+
+# 🔐 Passport keys (garantia inicial)
+RUN php artisan passport:keys --force || true
+
+# Porta Render
 EXPOSE 10000
 
-# Start (AQUI É A CHAVE)
-CMD php artisan migrate --seed --force && php artisan serve --host=0.0.0.0 --port=10000
+CMD ["/var/www/docker/entrypoint.sh"]
